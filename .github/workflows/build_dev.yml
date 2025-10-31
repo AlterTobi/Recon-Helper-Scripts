@@ -1,0 +1,35 @@
+name: DEVELOP build and deploy
+on:
+  push:
+    branches:
+      - dev
+      - 'issue/*'
+      - 'feature/*'
+      - 'hotfix/*'
+      - 'test/*'
+
+jobs:
+  build-and-deploy:
+    if: github.actor != 'dependabot[bot]'
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install and Build
+        env:
+          GOOGLE_MAPS_KEY: ${{ secrets.GOOGLE_MAPS_KEY }}
+        run: |
+          cd _buildscripts
+          /usr/bin/python3 ./build.py -c build_dev.ini
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy.
+          branch: gh-pages # The branch the action should deploy to.
+          target-folder: dev
+          single-commit: true # need no history
