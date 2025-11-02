@@ -8,7 +8,7 @@
 
 (function() {
   "use strict";
-  // const windowRef = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
+  // const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
