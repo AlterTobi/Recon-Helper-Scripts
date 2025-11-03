@@ -1,6 +1,11 @@
 ## Was ist das hier?
-Userscripts/Tools für [Operation Portal Recon](https://opr.ingress.com/)
-> ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) oder [Violentmonkey](https://violentmonkey.github.io/) ist erforderlich!
+Diese Seite bietet eine Sammlung meiner Userscripts und Tools für [Operation Portal Recon](https://opr.ingress.com/), die dir helfen sollen, Bewertungen und Vorschläge schneller und komfortabler zu bearbeiten.
+Alle hier vorgestellten Erweiterungen wurden mit dem Ziel entwickelt, die Nutzung von Wayfarer zu verbessern und alltägliche Aufgaben zu vereinfachen.
+
+Bitte beachte: Diese Projekte sind inoffiziell und stehen in keiner Verbindung zu NianticSpecial oder Recon.
+Die Verwendung erfolgt auf eigene Verantwortung.
+
+> Ein Userscript Manager wie z.B. [Tampermonkey](https://tampermonkey.net/) oder [Violentmonkey](https://violentmonkey.github.io/) ist erforderlich!
 
 ---
 
