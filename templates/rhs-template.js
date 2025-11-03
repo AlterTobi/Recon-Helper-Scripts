@@ -5,6 +5,7 @@
 
 (function() {
   "use strict";
+  const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
   const sessvarMiss = "warnBase";
   const baseMinVersion = "0.0.1";
@@ -15,13 +16,13 @@
     `;
 
   function myTemplate() {
-    window.rhs.f.addCSS(myCssId, myStyle);
+    w.rhs.f.addCSS(myCssId, myStyle);
     // YOUR CODE HERE
     // .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
   const init = () => {
-    window.addEventListener("RHSHomePageLoaded", myTemplate);
+    w.addEventListener("RHSHomePageLoaded", myTemplate);
 
   };
 
@@ -32,7 +33,7 @@
       alert("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
       console.error("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
     }
-  } else if (window.rhs.f.hasMinVersion(baseMinVersion)) {
+  } else if (w.rhs.f.hasMinVersion(baseMinVersion)) {
     init();
   } else {
     console.warn(GM_info.script.name, "Need at least rhs-base version ", baseMinVersion, " Please upgrade.");
