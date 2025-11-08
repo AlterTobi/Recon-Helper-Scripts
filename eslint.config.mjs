@@ -1,6 +1,6 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
-import stylisticJs from "@stylistic/eslint-plugin-js";
+import stylistic from "@stylistic/eslint-plugin";
 
 export default [
   {files: ["**/*.js"],
@@ -17,9 +17,9 @@ export default [
   },
   pluginJs.configs.recommended,
   {plugins: {
-    "@stylistic/js": stylisticJs
-  }},
-  {rules: {
+    "@stylistic": stylistic
+  },
+  rules: {
     // errors & suggestions
     "block-scoped-var": "error",
     "curly": "error",
@@ -55,23 +55,24 @@ export default [
     "no-unused-vars": ["error", { "varsIgnorePattern": "init|ignored" }],
 
     // Layout
-    "@stylistic/js/array-bracket-newline": ["warn", "consistent"],
-    "@stylistic/js/brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
-    "@stylistic/js/comma-dangle": ["warn", "only-multiline"],
-    "@stylistic/js/comma-spacing": ["warn", { "before": false, "after": true }],
-    "@stylistic/js/func-call-spacing": ["warn", "never"],
-    "@stylistic/js/indent": ["warn", 2, { "SwitchCase": 1 }],
-    "@stylistic/js/newline-per-chained-call": "warn",
-    "@stylistic/js/no-multi-spaces": "warn",
-    "@stylistic/js/no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 0 }],
-    "@stylistic/js/no-tabs": ["warn", { "allowIndentationTabs": true }],
-    "@stylistic/js/no-trailing-spaces": ["warn", { "skipBlankLines": false }],
-    "@stylistic/js/no-whitespace-before-property": "error",
-    "@stylistic/js/quotes": ["error", "double", { "avoidEscape": true }],
-    "@stylistic/js/semi": ["warn", "always"],
-    "@stylistic/js/semi-spacing": ["warn", {"before": false, "after": true}],
-    "@stylistic/js/semi-style": ["warn", "last"],
-    "@stylistic/js/space-before-blocks": "warn",
-    "@stylistic/js/switch-colon-spacing": ["error", {"after": true, "before": false}]
-  }}
+    "@stylistic/array-bracket-newline": ["warn", "consistent"],
+    "@stylistic/brace-style": ["warn", "1tbs", { "allowSingleLine": true }],
+    "@stylistic/comma-dangle": ["warn", "only-multiline"],
+    "@stylistic/comma-spacing": ["warn", { "before": false, "after": true }],
+    "@/func-call-spacing": ["warn", "never"],
+    "@stylistic/indent": ["warn", 2, { "SwitchCase": 1 }],
+    "@stylistic/newline-per-chained-call": "warn",
+    "@stylistic/no-multi-spaces": "warn",
+    "@stylistic/no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 0 }],
+    "@stylistic/no-tabs": ["warn", { "allowIndentationTabs": true }],
+    "@stylistic/no-trailing-spaces": ["warn", { "skipBlankLines": false }],
+    "@stylistic/no-whitespace-before-property": "error",
+    "@stylistic/quotes": ["error", "double", { "avoidEscape": true }],
+    "@stylistic/semi": ["warn", "always"],
+    "@stylistic/semi-spacing": ["warn", {"before": false, "after": true}],
+    "@stylistic/semi-style": ["warn", "last"],
+    "@stylistic/space-before-blocks": "warn",
+    "@stylistic/switch-colon-spacing": ["error", {"after": true, "before": false}]
+  }
+  }
 ];
