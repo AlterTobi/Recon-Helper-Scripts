@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      0.0.2
+// @version      0.0.3
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -253,6 +253,7 @@
   window.dispatchEvent = function(event) {
     if (event.type.startsWith("OPR")) {
       const jetzt = new Date().toLocaleTimeString("de-DE");
+      console.log(GM_info.script.name, "Event:", event.type);
       window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
     }
     return originalDispatch.call(this, event);
