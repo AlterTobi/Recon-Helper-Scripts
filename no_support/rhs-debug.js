@@ -258,7 +258,8 @@
   const originalDispatch = window.dispatchEvent;
   window.dispatchEvent = function(event) {
     if (event.type.startsWith("OPR")) {
-      w.rhs.f.createNotification("#" + ++notificationCounter + " Event ausgelöst: " + event.type, "fuchsia", {autoclose: 30});
+      const jetzt = new Date().toLocaleTimeString("de-DE");
+            window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
     }
     return originalDispatch.call(this, event);
   };
