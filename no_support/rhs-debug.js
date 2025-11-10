@@ -6,7 +6,8 @@
 (function() {
   "use strict";
   const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
-  
+  const sessvarMiss = "warnBase";
+
   // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
   const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
   const myID = "rhs-debugOverlay";
@@ -247,25 +248,26 @@
   window.addEventListener("OPRHelpPageLoaded", removeInfobox);
   window.addEventListener("OPRSettingsLoaded", removeInfobox);
 
- // Events abfangen
-  const originalDispatch = window.dispatchEvent;
-  window.dispatchEvent = function(event) {
-    if (event.type.startsWith("OPR")) {
-      window.wfes.f.createNotification("Event ausgelöst: " + event.type, "fuchsia");
-    }
-    return originalDispatch.call(this, event);
-  };
-
   // Events abfangen
   const originalDispatch = window.dispatchEvent;
   window.dispatchEvent = function(event) {
     if (event.type.startsWith("OPR")) {
       const jetzt = new Date().toLocaleTimeString("de-DE");
-            window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+      window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
     }
     return originalDispatch.call(this, event);
   };
 
+  // === no changes needed below this line ======================
+  if("undefined" === typeof(rhs)) {
+    if (undefined === sessionStorage[sessvarMiss]) {
+      sessionStorage[sessvarMiss] = 1;
+      alert("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
+      console.error("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
+    }
+  }
+
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
+
 })();
