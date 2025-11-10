@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 0.0.1
+// @version 0.0.2
 // @description CSS modifcations for OPR
 // @author AlterTobi
 
@@ -25,7 +25,7 @@
     .rhs-text-4xl { font-size: 1.9rem !important; line-height: 1.8rem !important; }
     .rhs-text-lg { line-height: 1.5rem !important; font-size: 1.1rem !important; }
     .rhs-h4 { font-size:1.5rem; line-height:1.2rem; padding-bottom:0.5rem; }
-    .rhs-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; } 
+    .rhs-card__header { margin-top:-0.5rem; margin-bottom: -1.0rem; }
     .rhs-fit-content { max-width: fit-content; }
     .rhs-pad05 { padding: 0.5rem !important; }
     .rhs-smallgap { gap: 1rem 0 !important; }

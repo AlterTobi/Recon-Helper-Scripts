@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.0.2
+// @version      0.0.3
 // @description  basic functionality for OPR
 // @author       AlterTobi
 // @run-at       document-start
@@ -30,7 +30,7 @@
           width: 40em;
           z-index: 100;
         }
-        
+
     /* Einzelne Notifications */
         .rhsNotification {
           border-radius: 0.5em;
@@ -42,14 +42,14 @@
           flex-direction: column;
           gap: 0.5em;
         }
-        
+
     /* Inhalt mit Text und Buttons */
         .rhsNotificationContent {
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-        
+
     /* Text */
         .rhsTextGroup {
           display: flex;
@@ -63,13 +63,13 @@
           word-wrap: break-word; /* Zeilenumbruch für lange Texte */
           overflow-wrap: break-word;
         }
-        
+
     /* Buttons-Gruppe */
         .rhsButtonGroup {
           display: flex;
           align-items: center;
         }
-        
+
     /* notification Buttons */
         .rhsNotiButton {
           font-size: 32px;
