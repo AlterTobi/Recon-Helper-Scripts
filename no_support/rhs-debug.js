@@ -1,10 +1,12 @@
 // @name         Debug
-// @version      0.0.1
+// @version      0.0.2
 // @description  show some debugging info
 // @author       AlterTobi
 
 (function() {
   "use strict";
+  const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
+  
   // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
   const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
   const myID = "rhs-debugOverlay";
