@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.0.3
+// @version      0.0.4
 // @description  basic functionality for OPR
 // @author       AlterTobi
 // @run-at       document-start
@@ -312,8 +312,12 @@
         case PREFIX + "profile":
           rhs.currentPage = rhs.OPR_PAGES.PROFILE;
           rhs.profile = json.result;
+          
+          console.log( GM_info.script.name, " sende Events Profile")
+          
           window.dispatchEvent(new Event("OPRProfileLoaded"));
-          window.dispatchEvent(new Event("OPRPageLoaded"));
+          w.dispatchEvent(new Event("OPRPageLoaded"));
+          
           break;
         case PREFIX + "manage":
           rhs.currentPage = rhs.OPR_PAGES.MANAGE;

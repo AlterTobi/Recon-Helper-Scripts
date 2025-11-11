@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      0.0.3
+// @version      0.0.4
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -239,7 +239,7 @@
   window.addEventListener("OPRReviewPageEditLoaded", reviewEdit);
   window.addEventListener("OPRReviewPagePhotoLoaded", newPhoto);
   window.addEventListener("OPRNominationDetailLoaded", nominationDetail);
-  window.addEventListener("OPRPageLoaded", addMail2ProfilePic);
+  w.addEventListener("OPRPageLoaded", addMail2ProfilePic);
 
   // remove debug ooverlay - explizit alle Seiten, weil OPRPageLoaded es sonst auch auf der review-Seite wieder entfernen würde
   window.addEventListener("OPRReviewDecisionSent", removeInfobox);
@@ -254,7 +254,7 @@
     if (event.type.startsWith("OPR")) {
       const jetzt = new Date().toLocaleTimeString("de-DE");
       console.log(GM_info.script.name, "Event:", event.type);
-      window.wfes.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+      w.rhs.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
     }
     return originalDispatch.call(this, event);
   };
