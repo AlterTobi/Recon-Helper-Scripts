@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.0.4
+// @version      0.0.5
 // @description  basic functionality for OPR
 // @author       AlterTobi
 // @run-at       document-start
@@ -312,12 +312,12 @@
         case PREFIX + "profile":
           rhs.currentPage = rhs.OPR_PAGES.PROFILE;
           rhs.profile = json.result;
-          
-          console.log( GM_info.script.name, " sende Events Profile")
-          
+
+          console.log( GM_info.script.name, " sende Events Profile");
+
           window.dispatchEvent(new Event("OPRProfileLoaded"));
           w.dispatchEvent(new Event("OPRPageLoaded"));
-          
+
           break;
         case PREFIX + "manage":
           rhs.currentPage = rhs.OPR_PAGES.MANAGE;
@@ -860,6 +860,37 @@
     w.rhs.f.addCSS(myCssId, myStyle);
     w.rhs.f.createNotificationArea();
   }
+
+  /* ================ Events mitloggen ======================= */
+  const originalDispatchEvent = EventTarget.prototype.dispatchEvent;
+
+  EventTarget.prototype.dispatchEvent = function(event) {
+    try {
+      const name = event.type;
+      const target = this;
+
+      // Farbcode nach Event-Typ wählen (optional)
+      let color = "color: gray";
+      if (name.startsWith("WFES")) {color = "color: #0078ff; font-weight: bold";} else if (name.startsWith("OPR")) {color = "color: #ff08ff; font-weight: bold";} else if (name.startsWith("click")) {color = "color: #00aa00";} else if (name.startsWith("keydown") || name.startsWith("keyup")) {color = "color: #aa00aa";} else if (name.startsWith("input")) {color = "color: #ff8800";}
+
+      // Konsolenausgabe
+      console.log(
+        `%c[Event]%c ${name}%c → %o`,
+        "color: #888; font-weight: bold",
+        color,
+        "color: #666",
+        target
+      );
+
+    } catch (err) {
+      console.error("Fehler im dispatchEvent-Hook:", err);
+    }
+
+    // Original-Dispatch ausführen
+    return originalDispatchEvent.call(this, event);
+  };
+
+  /* ================ Events mitloggen ======================= */
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
