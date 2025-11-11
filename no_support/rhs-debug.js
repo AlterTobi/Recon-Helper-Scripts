@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      0.0.4
+// @version      0.0.5
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -249,8 +249,8 @@
   window.addEventListener("OPRSettingsLoaded", removeInfobox);
 
   // Events abfangen
-  const originalDispatch = window.dispatchEvent;
-  window.dispatchEvent = function(event) {
+  const originalDispatch = w.dispatchEvent;
+  w.dispatchEvent = function(event) {
     if (event.type.startsWith("OPR")) {
       const jetzt = new Date().toLocaleTimeString("de-DE");
       console.log(GM_info.script.name, "Event:", event.type);

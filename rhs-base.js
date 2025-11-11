@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.0.5
+// @version      0.0.6
 // @description  basic functionality for OPR
 // @author       AlterTobi
 // @run-at       document-start
@@ -300,8 +300,8 @@
         case PREFIX + "home":
           rhs.currentPage = rhs.OPR_PAGES.HOME;
           rhs.showcase.list = json.result.showcase;
-          window.dispatchEvent(new Event("OPRHomePageLoaded"));
-          window.dispatchEvent(new Event("OPRPageLoaded"));
+          w.dispatchEvent(new Event("OPRHomePageLoaded"));
+          w.dispatchEvent(new Event("OPRPageLoaded"));
           break;
         case PREFIX + "review":
           rhs.currentPage = rhs.OPR_PAGES.REVIEW;
