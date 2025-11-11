@@ -249,6 +249,7 @@
   w.addEventListener("OPRSettingsLoaded", removeInfobox);
 
   // Events abfangen
+  /*
   const originalDispatch = w.dispatchEvent;
   w.dispatchEvent = function(event) {
     if (event.type.startsWith("OPR")) {
@@ -258,6 +259,7 @@
     }
     return originalDispatch.call(this, event);
   };
+  */
 
   // === no changes needed below this line ======================
   if("undefined" === typeof(rhs)) {
