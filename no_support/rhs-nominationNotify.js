@@ -238,12 +238,8 @@
   }
 
   let loadNomTimerId = null;
-  if (w.rhs.f.hasMinVersion("1.5.1")) {
-    w.addEventListener("OPRNominationListLoaded",
-      () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded, 250);});
-  } else {
-    alert(GM_info.script.name + ": Need at least rhs-Base version 1.5.1. Please upgrade.");
-  }
+  w.addEventListener("OPRNominationListLoaded",
+    () => { clearTimeout(loadNomTimerId); loadNomTimerId = setTimeout(NominationPageLoaded, 250);});
 
   w.addEventListener("OPRNominationDetailLoaded", () => {setTimeout(NominationSelected, 10);});
 
