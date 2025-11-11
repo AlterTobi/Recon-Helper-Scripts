@@ -413,7 +413,15 @@
   switch(window.origin) {
     case ORIGIN_OPR:
       console.log("Init Script loading:", GM_info.script.name, " - OPR");
-      initOPR();
+      if("undefined" === typeof(rhs)) {
+        if (undefined === sessionStorage[sessvarMiss]) {
+          sessionStorage[sessvarMiss] = 1;
+          alert("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
+          console.error("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
+        }
+      } else {
+        initOPR();
+      }
       break;
     case ORIGIN_DEEPL:
       console.log("Init Script loading:", GM_info.script.name, " - Deepl");
@@ -427,14 +435,6 @@
       console.warn("unknown origin", window.origin, "not handled");
   }
 
-  // === no changes needed below this line ======================
-  if("undefined" === typeof(rhs)) {
-    if (undefined === sessionStorage[sessvarMiss]) {
-      sessionStorage[sessvarMiss] = 1;
-      alert("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
-      console.error("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
-    }
-  }
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);
 })();
