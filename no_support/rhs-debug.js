@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      0.0.5
+// @version      0.0.6
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -235,18 +235,18 @@
   }
 
   // display debug ooverlay
-  window.addEventListener("OPRReviewPageNewLoaded", reviewNew);
-  window.addEventListener("OPRReviewPageEditLoaded", reviewEdit);
-  window.addEventListener("OPRReviewPagePhotoLoaded", newPhoto);
-  window.addEventListener("OPRNominationDetailLoaded", nominationDetail);
+  w.addEventListener("OPRReviewPageNewLoaded", reviewNew);
+  w.addEventListener("OPRReviewPageEditLoaded", reviewEdit);
+  w.addEventListener("OPRReviewPagePhotoLoaded", newPhoto);
+  w.addEventListener("OPRNominationDetailLoaded", nominationDetail);
   w.addEventListener("OPRPageLoaded", addMail2ProfilePic);
 
   // remove debug ooverlay - explizit alle Seiten, weil OPRPageLoaded es sonst auch auf der review-Seite wieder entfernen würde
-  window.addEventListener("OPRReviewDecisionSent", removeInfobox);
-  window.addEventListener("OPRHomePageLoaded", removeInfobox);
-  window.addEventListener("OPRProfileLoaded", removeInfobox);
-  window.addEventListener("OPRHelpPageLoaded", removeInfobox);
-  window.addEventListener("OPRSettingsLoaded", removeInfobox);
+  w.addEventListener("OPRReviewDecisionSent", removeInfobox);
+  w.addEventListener("OPRHomePageLoaded", removeInfobox);
+  w.addEventListener("OPRProfileLoaded", removeInfobox);
+  w.addEventListener("OPRHelpPageLoaded", removeInfobox);
+  w.addEventListener("OPRSettingsLoaded", removeInfobox);
 
   // Events abfangen
   const originalDispatch = w.dispatchEvent;

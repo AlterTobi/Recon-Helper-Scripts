@@ -154,7 +154,7 @@
     if (rhs.version !== v) {
       console.log("OPR version changed from", rhs.version, "to", v);
       rhs.version = v;
-      window.dispatchEvent(new Event("OPRVersionChanged"));
+      w.dispatchEvent(new Event("OPRVersionChanged"));
     }
   }
 
@@ -174,13 +174,13 @@
       console.error(GM_info.script.name, ": userprofile does not contain username ", e);
     }
   }
-  window.addEventListener("OPRPropertiesLoaded", setUserId);
+  w.addEventListener("OPRPropertiesLoaded", setUserId);
 
   // sometimes (i.e. when pressing F5) properties are not (re-)loaded by WF
   function _getPropsOnce() {
     if (false === propsLoaded) {
-      if ( null !== window.document.querySelector("body > app-root > app-wayfarer")) {
-        // make sure, application is loaded, login is: window.document.querySelector('body > app-root > app-login')
+      if ( null !== document.querySelector("body > app-root > app-wayfarer")) {
+        // make sure, application is loaded, login is: document.querySelector('body > app-root > app-login')
         const theUrl = "/api/v1/vault/properties";
         const request = new XMLHttpRequest();
         request.open("GET", theUrl, true);
@@ -214,12 +214,12 @@
   /* =========== IndexedDB ============================= */
   const getIDBInstance = version => new Promise((resolve, reject) => {
 
-    if (!window.indexedDB) {
+    if (!w.indexedDB) {
       reject("This browser doesn't support IndexedDB!");
       return;
     }
 
-    const openRequest = window.indexedDB.open(idbName, version);
+    const openRequest = w.indexedDB.open(idbName, version);
     openRequest.onsuccess = event => {
       const db = event.target.result;
       resolve(db);
@@ -240,7 +240,7 @@
   /* =========== /IndexedDB ============================ */
 
   /* ================ overwrite XHR ================ */
-  const openOrig = window.XMLHttpRequest.prototype.open, sendOrig = window.XMLHttpRequest.prototype.send;
+  const openOrig = w.XMLHttpRequest.prototype.open, sendOrig = w.XMLHttpRequest.prototype.send;
 
   /* handle data */
   function handleReviewData(result) {
@@ -258,7 +258,7 @@
     rhs.review.pageData = result;
     switch (rhs.review.pageData.type) {
       case "NEW":
-        window.dispatchEvent(new Event("OPRReviewPageNewLoaded"));
+        w.dispatchEvent(new Event("OPRReviewPageNewLoaded"));
         break;
       case "EDIT":
         rhs.edit.isEdit = true;
@@ -266,14 +266,14 @@
         rhs.edit.what.location = result.locationEdits.length > 1;
         rhs.edit.what.description = result.descriptionEdits.length > 0;
         rhs.edit.what.title = result.titleEdits.length > 0;
-        window.dispatchEvent(new Event("OPRReviewPageEditLoaded"));
+        w.dispatchEvent(new Event("OPRReviewPageEditLoaded"));
         break;
       case "PHOTO":
-        window.dispatchEvent(new Event("OPRReviewPagePhotoLoaded"));
+        w.dispatchEvent(new Event("OPRReviewPagePhotoLoaded"));
         break;
     }
-    window.dispatchEvent(new Event("OPRReviewPageLoaded"));
-    window.dispatchEvent(new Event("OPRPageLoaded"));
+    w.dispatchEvent(new Event("OPRReviewPageLoaded"));
+    w.dispatchEvent(new Event("OPRPageLoaded"));
   }
 
   function handleLoadEvent(e) {
@@ -315,7 +315,7 @@
 
           console.log( GM_info.script.name, " sende Events Profile");
 
-          window.dispatchEvent(new Event("OPRProfileLoaded"));
+          w.dispatchEvent(new Event("OPRProfileLoaded"));
           w.dispatchEvent(new Event("OPRPageLoaded"));
 
           break;
@@ -324,8 +324,8 @@
           // nomination list
           rhs.nominations.list = json.result.submissions; // .filter(obj => "NOMINATION" === obj.type).slice();
           rhs.nominations.canAppeal = json.result.canAppeal;
-          window.dispatchEvent(new Event("OPRNominationListLoaded"));
-          window.dispatchEvent(new Event("OPRPageLoaded"));
+          w.dispatchEvent(new Event("OPRNominationListLoaded"));
+          w.dispatchEvent(new Event("OPRPageLoaded"));
           break;
         case PREFIX + "manage/detail":
           rhs.currentPage = rhs.OPR_PAGES.MANAGE_DETAIL;
@@ -335,26 +335,26 @@
           w.rhs.f.sessionGet(sStoreNominationsDetails, {}).then((nominationDict)=>{
             nominationDict[rhs.nominations.detail.id] = rhs.nominations.detail;
             w.rhs.f.sessionSave(sStoreNominationsDetails, nominationDict).then(()=>{
-              window.dispatchEvent(new Event("OPRNominationDetailLoaded"));
-              window.dispatchEvent(new Event("OPRNominationDetailLoaded"+json.result.type));
+              w.dispatchEvent(new Event("OPRNominationDetailLoaded"));
+              w.dispatchEvent(new Event("OPRNominationDetailLoaded"+json.result.type));
             });
           });
           break;
         case PREFIX + "properties":
           rhs.currentPage = rhs.OPR_PAGES.PROPERTIES;
           rhs.properties = json.result;
-          window.dispatchEvent(new Event("OPRPropertiesLoaded"));
+          w.dispatchEvent(new Event("OPRPropertiesLoaded"));
           break;
         case PREFIX + "settings":
           rhs.currentPage = rhs.OPR_PAGES.SETTINGS;
           rhs.settings = json.result;
-          window.dispatchEvent(new Event("OPRSettingsLoaded"));
-          window.dispatchEvent(new Event("OPRPageLoaded"));
+          w.dispatchEvent(new Event("OPRSettingsLoaded"));
+          w.dispatchEvent(new Event("OPRPageLoaded"));
           break;
         case PREFIX + "help":
           rhs.currentPage = rhs.OPR_PAGES.HELP;
-          window.dispatchEvent(new Event("OPRHelpPageLoaded"));
-          window.dispatchEvent(new Event("OPRPageLoaded"));
+          w.dispatchEvent(new Event("OPRHelpPageLoaded"));
+          w.dispatchEvent(new Event("OPRPageLoaded"));
           break;
         default:
         // messages?language=de
@@ -394,7 +394,7 @@
           candidate = rhs.review.sessionHist[json.id];
           rhs.review.decision.candidate = candidate;
           rhs.review.decision.decision = json;
-          window.dispatchEvent(new Event("OPRReviewDecisionSent"));
+          w.dispatchEvent(new Event("OPRReviewDecisionSent"));
           break;
         case PREFIX + "review/skip":
           json = JSON.parse(daten);
@@ -402,12 +402,12 @@
           rhs.review.decision.candidate = candidate;
           json.skipped = true;
           rhs.review.decision.decision = json;
-          window.dispatchEvent(new Event("OPRReviewDecisionSent"));
+          w.dispatchEvent(new Event("OPRReviewDecisionSent"));
           break;
         case PREFIX + "manage/appeal":
           json = JSON.parse(daten);
           rhs.review.appeal = json;
-          window.dispatchEvent(new Event("OPRReviewAppealSent"));
+          w.dispatchEvent(new Event("OPRReviewAppealSent"));
           break;
         default:
           break;
@@ -416,15 +416,15 @@
     return sendOrig.apply(this, arguments);
   }
 
-  window.XMLHttpRequest.prototype.open = openReplacement;
-  window.XMLHttpRequest.prototype.send = sendReplacement;
+  w.XMLHttpRequest.prototype.open = openReplacement;
+  w.XMLHttpRequest.prototype.send = sendReplacement;
   /* ================ /overwrite XHR ================ */
 
   /* ================ showcase ====================== */
   function showCaseSwipe() {
-    const myDetail = window.document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
+    const myDetail = document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
     rhs.showcase.current = myDetail;
-    window.dispatchEvent(new Event("OPRShowCaseClick"));
+    w.dispatchEvent(new Event("OPRShowCaseClick"));
   }
 
   function showCaseLoaded() {
@@ -440,12 +440,12 @@
     }
 
     rhs.showcase.current = rhs.showcase.list[0];
-    const buttons = window.document.getElementsByClassName("wf-button showcase-gallery__button wf-button--icon ng-star-inserted");
+    const buttons = document.getElementsByClassName("wf-button showcase-gallery__button wf-button--icon ng-star-inserted");
     for (let i=0; i < buttons.length; i++) {
       buttons[i].addEventListener("click", () => setTimeout(()=>{
-        const myDetail = window.document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
+        const myDetail = document.getElementsByTagName("app-showcase-item")[0].__ngContext__[29];
         rhs.showcase.current = myDetail;
-        window.dispatchEvent(new Event("OPRShowCaseClick"));
+        w.dispatchEvent(new Event("OPRShowCaseClick"));
       }, 100));
     }
     if (_isMobile) {
@@ -464,13 +464,13 @@
     }
   }
 
-  window.addEventListener("OPRHomePageLoaded", () => {setTimeout(showCaseLoaded, 250);});
+  w.addEventListener("OPRHomePageLoaded", () => {setTimeout(showCaseLoaded, 250);});
   /* ================ /showcase ===================== */
 
   /* ================ nomination page =============== */
   function loadCachedNomination(nomItem) {
     if (undefined === rhs.nominations.detail) {
-      window.setTimeout(loadCachedNomination, 250, nomItem);
+      setTimeout(loadCachedNomination, 250, nomItem);
       return;
     }
     const myID = nomItem.__ngContext__[22].id;
@@ -486,13 +486,13 @@
       }
       // set cached values
       rhs.nominations.detail = nomDetail;
-      window.dispatchEvent(new Event("OPRNominationDetailLoaded"));
+      w.dispatchEvent(new Event("OPRNominationDetailLoaded"));
     });
   }
   function nominationsClickHander(elem) {
     const nomItem = elem.target.closest("app-submissions-list-item");
     if (nomItem) {
-      window.setTimeout(loadCachedNomination, 250, nomItem);
+      setTimeout(loadCachedNomination, 250, nomItem);
     } else {
       console.warn(GM_info.script.name, ": app-submissions-list-item missing");
     }
@@ -505,7 +505,7 @@
       console.warn(GM_info.script.name, ": app-submissions-list missing");
     }
   }
-  window.addEventListener("OPRNominationListLoaded", addNominationsClickHandler);
+  w.addEventListener("OPRNominationListLoaded", addNominationsClickHandler);
   /* ================ /nomination page ============== */
 
   /* ================ basic functions =============== */
@@ -852,7 +852,7 @@
   w.rhs.s.callback = function(what, func) {
     switch (what) {
       case "showcaseclick":
-        window.addEventListener("showcaseclick", func);
+        w.addEventListener("showcaseclick", func);
         break;
     }
   };
