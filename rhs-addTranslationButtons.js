@@ -2,7 +2,7 @@
 // @version      0.0.2
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
-// @match        https://wayfarer.nianticlabs.com/*
+// @match        https://opr.ingress.com/*
 // @match        https://www.deepl.com/*
 // @match        https://translate.kagi.com/*
 
@@ -319,7 +319,7 @@
     });
 
   }
-  // ----- END - the Wayfarer part ------
+  // ----- END - the OPR part ------
 
   // common functions (can't use rhs functions in translation windows)
   function awaitElem(selector, maxWaitTime = 5000) {
@@ -412,7 +412,7 @@
   // ----- BEGIN - general instructions ------
   switch(window.origin) {
     case ORIGIN_OPR:
-      console.log("Init Script loading:", GM_info.script.name, " - Wayfarer");
+      console.log("Init Script loading:", GM_info.script.name, " - OPR");
       initOPR();
       break;
     case ORIGIN_DEEPL:
