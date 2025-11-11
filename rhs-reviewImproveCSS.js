@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 0.0.2
+// @version 0.0.3
 // @description CSS modifcations for OPR
 // @author AlterTobi
 
@@ -193,8 +193,8 @@
   }
 
   function init() {
-    window.addEventListener("OPRReviewPageNewLoaded", reviewImproveCSS);
-    window.addEventListener("OPRReviewPageEditLoaded", editImproveCSS);
+    w.addEventListener("OPRReviewPageNewLoaded", reviewImproveCSS);
+    w.addEventListener("OPRReviewPageEditLoaded", editImproveCSS);
   }
 
   init();

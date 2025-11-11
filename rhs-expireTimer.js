@@ -1,5 +1,5 @@
 // @name        Expire Timer
-// @version     0.0.1
+// @version     0.0.2
 // @description Adds a simple timer to the top of the screen showing how much time you have left on the current review.
 // @author      MrJPGames / AlterTobi
 
@@ -78,8 +78,8 @@
   }
 
   const init = () => {
-    window.addEventListener("OPRReviewPageLoaded", () => createTimer("Time remaining: "));
-    window.addEventListener("OPRReviewDecisionSent", removeButton);
+    w.addEventListener("OPRReviewPageLoaded", () => createTimer("Time remaining: "));
+    w.addEventListener("OPRReviewDecisionSent", removeButton);
   };
 
 

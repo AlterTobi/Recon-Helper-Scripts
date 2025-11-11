@@ -1,5 +1,5 @@
 // @name         AutoHold
-// @version      0.0.1
+// @version      0.0.2
 // @description  put nomination on HOLD when additional stament contains the text "#hold"
 // @author       AlterTobi
 
@@ -51,7 +51,7 @@
     request.addEventListener("load", function() {
       if (request.status >= 200 && request.status < 300) {
         // prozess next
-        window.setTimeout(_prozessNext, timeout);
+        setTimeout(_prozessNext, timeout);
       } else {
         w.rhs.f.createNotification("AutoHold failed, see console for details", "red");
         console.warn(request.statusText, request.responseText);
@@ -61,7 +61,7 @@
   }
 
   function _reloadPage() {
-    window.location.reload();
+    w.location.reload();
   }
 
   function _prozessNext() {
@@ -94,7 +94,7 @@
     }
     if (idlist.length > 0) {
       // got some ;-)
-      window.setTimeout(_prozessNext, timeout);
+      setTimeout(_prozessNext, timeout);
     }
   }
 
@@ -106,7 +106,7 @@
       console.error("Missing RHS Base. Please install from https://altertobi.github.io/Recon-Helper-Scripts/");
     }
   } else if (w.rhs.f.hasMinVersion(baseMinVersion)) {
-    window.addEventListener("OPRNominationListLoaded", autoHold);
+    w.addEventListener("OPRNominationListLoaded", autoHold);
   } else {
     console.warn(GM_info.script.name, "Need at least rhs-base version ", baseMinVersion, " Please upgrade.");
   }

@@ -1,5 +1,5 @@
 // @name         dupes Scroll
-// @version      0.0.1
+// @version      0.0.2
 // @description  make duplicates strip scrollable by mouse wheel
 // @author       AlterTobi
 
@@ -39,7 +39,7 @@
     }
   }
 
-  window.addEventListener("OPRReviewPageNewLoaded", filmStripScroll);
+  w.addEventListener("OPRReviewPageNewLoaded", filmStripScroll);
 
   // === no changes needed below this line ======================
   if("undefined" === typeof(rhs)) {

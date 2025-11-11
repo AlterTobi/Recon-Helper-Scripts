@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      0.0.1
+// @version      0.0.2
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://wayfarer.nianticlabs.com/*
@@ -289,14 +289,14 @@
   }
 
   function initOPR() {
-    window.addEventListener("OPRReviewPageNewLoaded", addTranslationButtonsNew);
-    window.addEventListener("OPRReviewPageEditLoaded", addTranslationButtonsEdit);
-    window.addEventListener("OPRReviewPagePhotoLoaded", addTranslationButtonsPhoto);
-    window.addEventListener("OPRReviewDecisionSent", removeButton);
-    window.addEventListener("OPRHomePageLoaded", addTranslationButtonsShowcase);
-    window.addEventListener("OPRShowCaseClick", showCaseClick);
-    window.addEventListener("OPRPageLoaded", pageLoad);
-    window.addEventListener("OPRNominationListLoaded", removeButton);
+    w.addEventListener("OPRReviewPageNewLoaded", addTranslationButtonsNew);
+    w.addEventListener("OPRReviewPageEditLoaded", addTranslationButtonsEdit);
+    w.addEventListener("OPRReviewPagePhotoLoaded", addTranslationButtonsPhoto);
+    w.addEventListener("OPRReviewDecisionSent", removeButton);
+    w.addEventListener("OPRHomePageLoaded", addTranslationButtonsShowcase);
+    w.addEventListener("OPRShowCaseClick", showCaseClick);
+    w.addEventListener("OPRPageLoaded", pageLoad);
+    w.addEventListener("OPRNominationListLoaded", removeButton);
 
     w.rhs.f.addCSS(myCSSId, myStyle);
     w.rhs.f.localGet(storageName, "Deepl").then(e => {
@@ -368,7 +368,7 @@
         .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     }
 
-    window.addEventListener("message", (event) => {
+    w.addEventListener("message", (event) => {
       const msg = event.data;
 
       if ("translate" === msg?.type && "string" === typeof msg.payload) {
@@ -399,7 +399,7 @@
         .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     }
 
-    window.addEventListener("message", (event) => {
+    w.addEventListener("message", (event) => {
       const msg = event.data;
       if ("translate" === msg?.type && "string" === typeof msg.payload) {
         console.log("Kagi: Text erhalten:", msg.payload);
