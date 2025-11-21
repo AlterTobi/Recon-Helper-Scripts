@@ -1,5 +1,5 @@
 // @name        OPR Stats
-// @version     0.0.1
+// @version     0.0.2
 // @description save OPR statistics in local browser storage
 // @author      AlterTobi
 
@@ -12,13 +12,13 @@
 
   // define names
   const lStoreStats = selfname+"_Stats";
-  const lStorePogo = selfname+"_PoGoCount";
+  const lStoreTypes = selfname+"_TypeCount";
   const lStoreCheck = selfname+"_IsChecked";
   const lStoreCheckS2 = selfname+"_IsCheckedS2";
   const lStoreUpgrades = selfname+"_myUpgrades";
   const mapId = "DEMO_MAP_ID";
 
-  const myCssId = "wayfarerStatsCSS";
+  const myCssId = "oprStatsCSS";
   const myStyle = `
     th { text-align: center; }
     td, th { padding: 5px; border: 1px solid; }
@@ -36,18 +36,7 @@
     }
   `;
 
-  const WARN_POGO = `data:image/png;base64,
-iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
-bWFnZVJlYWR5ccllPAAAAFFQTFRF//////8z/8yZ/8xm/5lm/2Zm/zMzzMzMzMyZzMxmzGZmzDMz
-zDMAmczMmZnMmZmZmTMzmTMAZpnMZpmZZmZmZjMzM2ZmMzMzMwAAADMzAAAAQu3hzgAAAR1JREFU
-eNqc09GSgyAMBdC0QRFRQ6mI8v8fuglQRrednZ3eR4656IBw+zPwb0ZEpRTiR0bVdb3ljKN5Z1XM
-lgfwyth1DZ1zdlQXPunVoTTLcs+p7Fzth1yd0e17sHZ6PB55vrFU9zbEdUvJCYuXengNh00D6Fg8
-11fmb+LmQxR02qepsDOVbQghReBovaWdEwLvrgqPxxG3GGWWuD0eiRNjGAubWUsr8SxQeoJeiNZ1
-OyrfpRbWRFpTijpnnpenOTO7dBYjzjLUD8vvBDCvK9VJYV/5llkegJM+PVa+l/W2K2WmdiQnnpeq
-3jRG+DXKSqfzvkOdbOovl0n81ZsVr3cNhRsO7xfZDDNvvXjvCT/+BmgGosHgV3/JF/wjwACvbhgT
-fnV1HwAAAABJRU5ErkJggg==`;
-
-  let PoGoStats, oprStats, isChecked, isCheckedS2;
+  let RHSstats, oprStats, isChecked, isCheckedS2;
   let isInitialized = false;
 
   const body = document.getElementsByTagName("body")[0];
@@ -56,8 +45,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
   // init
   function init() {
     // get Values from localStorage
-    w.rhs.f.localGet(lStorePogo, []).then((PS)=>{
-      PoGoStats = PS;
+    w.rhs.f.localGet(lStoreTypes, []).then((PS)=>{
+      RHSstats = PS;
       w.rhs.f.localGet(lStoreStats, []).then((wf)=>{
         oprStats = wf;
         w.rhs.f.localGet(lStoreCheck, false).then((ic)=>{
@@ -206,83 +195,21 @@ fnV1HwAAAABJRU5ErkJggg==`;
       return;
     }
 
-    // hier die zu suchenden Begriffe rein
-    const pokeArr= [
-      "Pok[eéè]mon",
-      "Pok[eéè]stop",
-      "Stop",
-      "Trainer",
-      "Arena",
-      "Raid",
-      "Pogo",
-      "Lockmodul",
-      "Nester",
-      "Pokespot",
-      // spanisch
-      "parada",
-      "gimnasio"
-    ];
-    function pruefeText(text, arr) {
-      let hasText = false;
-      for (const p of arr) {
-        const r = new RegExp(p, "im");
-        if (r.test(text)) {
-          hasText = true;
-          break; // den Rest können wir uns sparen :-)
-        }
-      }
-      return (hasText);
-    }
-    function set_warning(image) {
-      const elem = document.querySelector("div.wf-page-header");
-      elem.insertAdjacentHTML("beforeEnd", '<img style="width: 64px;height: 64px;" src="' + image + '">');
-    }
-
     const newPortalData = w.rhs.g.reviewPageData();
 
-    const statement = newPortalData.statement === undefined ? "" : newPortalData.statement.trim();
     const type = newPortalData.type;
-    let subtype = 0;
-    let usertext = statement + " " +
-      newPortalData.title + " " +
-      newPortalData.description;
 
-    if ( ("NEW" === type) && ("" !== statement) ) {
-      subtype = 1;
-    }
-
-    if ( "EDIT" === type ) {
-      for (const d of newPortalData.descriptionEdits) {
-        usertext += " " + d.value;
-      }
-      for (const t of newPortalData.titleEdits) {
-        usertext += " " + t.value;
-      }
-    }
-
-    if ("" === usertext) {
-      console.warn(selfname + " kein Text - das ist ein Bug");
-    } else {
-      const hasPoketext = pruefeText(usertext, pokeArr);
-
-      // Statistik speichern
-      const jetzt = new Date();
-      const curstats = {
-        "datum" : jetzt.getTime(),
-        "typ" : type,
-        "subtyp" : subtype,
-        "pogo" : hasPoketext,
-        "hpwu" : false,
-        "latE6" : newPortalData.lat * 1E6,
-        "lngE6" : newPortalData.lng * 1E6,
-        "titel" : newPortalData.title
-      };
-      PoGoStats.push(curstats);
-      w.rhs.f.localSave(lStorePogo, PoGoStats);
-      if (hasPoketext) {
-        set_warning(WARN_POGO);
-      }
-    }
+    // Statistik speichern
+    const jetzt = new Date();
+    const curstats = {
+      "datum" : jetzt.getTime(),
+      "typ" : type,
+      "latE6" : newPortalData.lat * 1E6,
+      "lngE6" : newPortalData.lng * 1E6,
+      "titel" : newPortalData.title
+    };
+    RHSstats.push(curstats);
+    w.rhs.f.localSave(lStoreTypes, RHSstats);
   }
 
   function handleProfile() {
@@ -425,10 +352,10 @@ fnV1HwAAAABJRU5ErkJggg==`;
           innerScript += `
             function getPoints() {
             return [`;
-          for (let i = PoGoStats.length - 1; i > PoGoStats.length -501; i--) {
+          for (let i = RHSstats.length - 1; i > RHSstats.length -501; i--) {
             // nur die neuesten 500
-            const lat = PoGoStats[i].latE6/1E6;
-            const lng = PoGoStats[i].lngE6/1E6;
+            const lat = RHSstats[i].latE6/1E6;
+            const lng = RHSstats[i].lngE6/1E6;
             innerScript += "new google.maps.LatLng("+lat+","+lng+"),";
             if ( 0 === i) { break; }// weniger geht nicht
           }
@@ -455,32 +382,22 @@ fnV1HwAAAABJRU5ErkJggg==`;
           histText = "/#oprmarker";
           const iconBase = "https://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/";
 
-          for (let i = PoGoStats.length - 1; i > PoGoStats.length -501; i--) {
+          for (let i = RHSstats.length - 1; i > RHSstats.length -501; i--) {
             // nur die neuesten 500
-            const lat = PoGoStats[i].latE6/1E6;
-            const lng = PoGoStats[i].lngE6/1E6;
+            const lat = RHSstats[i].latE6/1E6;
+            const lng = RHSstats[i].lngE6/1E6;
             let ti1, ti2, ico;
-            let color = "Azure";
+            const color = "Azure";
             ti1 = ti2 = "";
-            if (PoGoStats[i].pogo) { ti2 = "PoGo"; color = "Pink";}
-            if (PoGoStats[i].hpwu) { ti2 = "HPWU"; color = "Chartreuse";}
 
-            switch (PoGoStats[i].typ) {
+            switch (RHSstats[i].typ) {
               case "EDIT":
                 ti1 = "Edit";
                 ico = "Map-Marker-Ball-Right-" + color + "-icon.png";
                 break;
               case "NEW":
-                switch (PoGoStats[i].subtyp) {
-                  case 0:
-                    ti1 = "NEW Redacted";
-                    ico = "Map-Marker-Push-Pin-1-"+color+"-icon.png";
-                    break;
-                  case 1:
-                    ti1 = "NEW ";
-                    ico = "Map-Marker-Marker-Outside-"+color+"-icon.png";
-                    break;
-                }
+                ti1 = "NEW ";
+                ico = "Map-Marker-Marker-Outside-"+color+"-icon.png";
                 break;
               case "PHOTO":
                 ti1 = "Photo";
@@ -530,8 +447,8 @@ fnV1HwAAAABJRU5ErkJggg==`;
               center: {lat: 51.38, lng: 10.12},
               mapTypeId: 'hybrid',
               mapId: '${mapId}'
-            })
-          `;
+            })`;
+
         script.innerHTML += innerScript + "}";
 
         body.appendChild(script);
@@ -539,7 +456,7 @@ fnV1HwAAAABJRU5ErkJggg==`;
         script = document.createElement("script");
         script.type = "text/javascript";
         script.setAttribute("async", "");
-        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&&libraries=visualization,geometry,marker&loading=async&callback=initMap");
+        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&libraries=visualization,geometry,marker&loading=async&callback=initMap");
         body.appendChild(script);
       }
 
@@ -553,76 +470,44 @@ fnV1HwAAAABJRU5ErkJggg==`;
     function showGamesTable() {
       const gamesdiv = document.getElementById("gamesdiv");
       gamesdiv.insertAdjacentHTML("afterBegin",
-        '<table border="2"><colgroup><col width="4%"><col width="19%"><col width="8%"><col width="8%"><col width="8%">' +
-        '<col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="8%"><col width="14%"></colgroup>' +
-        '<thead><tr><th rowspan="2" colspan="2"></th><th colspan="4">Wayspot Nominations</th>' +
-        '<th rowspan="2" colspan="2">Wayspot Edits</th><th rowspan="2" colspan="2">Photo</th>' +
-        '<th rowspan="2">total</th></tr><tr><th colspan="2">classic/redacted</th>' +
-        '<th colspan="2">Prime/Pokémon Go</th></tr></thead>' +
+        '<table border="2"><colgroup><col width="26%"><col width="10%"><col width="10%"><col width="10%">' +
+        '<col width="10%"><col width="10%"><col width="10%"><col width="14%"></colgroup>' +
+        '<thead><tr><th></th><th colspan="2">Nominations</th>' +
+        '<th colspan="2">Edits</th><th colspan="2">Photo</th>' +
+        "<th>total</th></tr></thead>" +
         '<tbody id="gamesTBbody"></tbody></table>');
 
       const innertable = document.getElementById("gamesTBbody");
-      let redg, redp, prig, prip, edig, edip, phog, phop;
-      redg = redp = prig = prip = edig = edip = phog = phop = 0;
+      let prig, edig, phog;
+      prig = edig = phog = 0;
 
       // Zählen
-      for (let i = 0; i < PoGoStats.length; i++) {
-        switch (PoGoStats[i].typ) {
+      for (let i = 0; i < RHSstats.length; i++) {
+        switch (RHSstats[i].typ) {
           case "EDIT":
             edig++;
-            if (PoGoStats[i].pogo) { edip++; }
             break;
           case "NEW":
-            switch (PoGoStats[i].subtyp) {
-              case 0:
-                redg++;
-                if (PoGoStats[i].pogo) { redp++; }
-                break;
-              case 1:
-                prig++;
-                if (PoGoStats[i].pogo) { prip++; }
-                break;
-              default:
-                console.warn("PoGoTable: falscher subtyp: " + PoGoStats[i].subtyp);
-            }
+            prig++;
             break;
           case "PHOTO":
             phog++;
-            if (PoGoStats[i].pogo) { phop++; }
             break;
           default:
-            console.warn(selfname + " falscher typ: " + PoGoStats[i].typ);
+            console.warn(selfname + " falscher typ: " + RHSstats[i].typ);
         }
       }
 
-      const revg = redg + prig + edig + phog;
-      const revp = redp + prip + edip + phop;
-
-      const redpp = redg > 0 ? (100*redp/redg).toFixed(2) : " -- ";
-      const pripp = prig > 0 ? (100*prip/prig).toFixed(2) : " -- ";
-      const edipp = edig > 0 ? (100*edip/edig).toFixed(2) : " -- ";
-      const revpp = revg > 0 ? (100*revp/revg).toFixed(2) : " -- ";
-      const phopp = phog > 0 ? (100*phop/phog).toFixed(2) : " -- ";
+      const revg = prig + edig + phog;
 
       // Tabelle füllen
-      const redgp = revg > 0 ? (100*redg/revg).toFixed(2) : " -- ";
       const prigp = revg > 0 ? (100*prig/revg).toFixed(2) : " -- ";
       const edigp = revg > 0 ? (100*edig/revg).toFixed(2) : " -- ";
       const phogp = revg > 0 ? (100*phog/revg).toFixed(2) : " -- ";
 
-      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><th colspan="2">reviews total </th><td>' + redg + "</td><td>"+redgp+"%</td><td>"+
+      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 2px solid;"><th>reviews total </th><td>'+
                          prig + "</td><td>"+prigp+"%</td><td>" + edig + "</td><td>"+edigp+"%</td><td>" + phog + "</td><td>"+phogp+"%</td><td>" + revg + "</td></tr>");
 
-      // PoGo Prozente
-      const redgpp = revp > 0 ? (100*redp/revp).toFixed(2) : " -- ";
-      const prigpp = revp > 0 ? (100*prip/revp).toFixed(2) : " -- ";
-      const edigpp = revp > 0 ? (100*edip/revp).toFixed(2) : " -- ";
-      const phogpp = revp > 0 ? (100*phop/revp).toFixed(2) : " -- ";
-
-      innertable.insertAdjacentHTML("beforeEnd", '<tr style="border-top: 1px solid;"><th></th><th>thereof  Pokémon </th><td>' + redp + "</td><td>"+redgpp+"%</td><td>"+ prip +
-                        "</td><td>"+prigpp+"%</td><td>" + edip + "</td><td>"+edigpp+"%</td><td>" + phop + "</td><td>"+phogpp+"%</td><td>" + revp + "</td></tr>");
-      innertable.insertAdjacentHTML("beforeEnd", '<tr><th></th><th>in percent </th><th colspan="2">' + redpp + '%</th><th colspan="2">'+ pripp +
-                        '%</th><th colspan="2">' + edipp + '%</th><th colspan="2">' + phopp + "%</th><th>" + revpp + "%</th></tr>");
     }
 
     // ---
