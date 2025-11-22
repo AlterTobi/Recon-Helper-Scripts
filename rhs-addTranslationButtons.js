@@ -1,5 +1,5 @@
 // @name         Add Translation Buttons
-// @version      0.0.2
+// @version      1.0.0
 // @description  Adds a button to translate the text associated with a wayspot
 // @author       AlterTobi
 // @match        https://opr.ingress.com/*
