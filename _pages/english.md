@@ -16,7 +16,9 @@ Install [RHS Base](rhs-base.user.js) first!
 ---
 
 ## List of scripts
-(will be added after the launch of OPR)
+(sorted alphabetically - more scripts will be added gradually)
+* [OPR Stats](rhs-oprStats.user.js)
+    - saves some personal statistics in local browser storage
 
 ---
 

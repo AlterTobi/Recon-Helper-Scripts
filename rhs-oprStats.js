@@ -1,5 +1,5 @@
 // @name        OPR Stats
-// @version     0.0.2
+// @version     1.0.0
 // @description save OPR statistics in local browser storage
 // @author      AlterTobi
 
@@ -371,8 +371,6 @@
                          prig + "</td><td>"+prigp+"%</td><td>" + edig + "</td><td>"+edigp+"%</td><td>" + phog + "</td><td>"+phogp+"%</td><td>" + revg + "</td></tr>");
 
     }
-
-    // ---
 
     w.rhs.f.addCSS(myCssId, myStyle);
 

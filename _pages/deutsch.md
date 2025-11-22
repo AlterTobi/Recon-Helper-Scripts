@@ -9,14 +9,16 @@ Die Verwendung erfolgt auf eigene Verantwortung.
 
 ---
 
-# Installation
+## Installation
 Zuerst [RHS Base](rhs-base.user.js) installieren!
 > **Dieses Skript ist erforderlich, damit alle anderen funktionieren.**
 
 ---
 
 ## Liste der Skripte
-(werden nach dem Start von OPR hinzugefügt)
+(alphabetisch sortiert - weitere Skripte werden nach und nach hinzugefügt)
+* [OPR Stats](rhs-oprStats.user.js)
+    - speichert persönliche Statistiken im Browser Local Storage
 
 ---
 
