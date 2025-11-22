@@ -34,7 +34,7 @@
   `;
 
   let RHSstats, oprStats, isChecked;
-  const isInitialized = false;
+  let isInitialized = false;
 
   const body = document.getElementsByTagName("body")[0];
   const head = document.getElementsByTagName("head")[0];
@@ -48,6 +48,7 @@
         oprStats = wf;
         w.rhs.f.localGet(lStoreCheck, false).then((ic)=>{
           isChecked = ic;
+          isInitialized = true;
         });
       });
     });
