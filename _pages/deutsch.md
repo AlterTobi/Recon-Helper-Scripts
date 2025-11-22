@@ -17,6 +17,8 @@ Zuerst [RHS Base](rhs-base.user.js) installieren!
 
 ## Liste der Skripte
 (alphabetisch sortiert - weitere Skripte werden nach und nach hinzugefügt)
+* [AutoHold](rhs-autoHold.user.js)
+    - erkennt '#hold' im Zusatztext und stellt Nominierung zurück ([Dokumentation](de/autohold.html))
 * [OPR Stats](rhs-oprStats.user.js)
     - speichert persönliche Statistiken im Browser Local Storage
 

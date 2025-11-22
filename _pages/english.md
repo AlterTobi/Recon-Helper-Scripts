@@ -17,6 +17,8 @@ Install [RHS Base](rhs-base.user.js) first!
 
 ## List of scripts
 (sorted alphabetically - more scripts will be added gradually)
+* [AutoHold](rhs-autoHold.user.js)
+    - searches for '#hold' in supporting statement and puts nomination on hold ([documentation](en/autohold.html))
 * [OPR Stats](rhs-oprStats.user.js)
     - saves some personal statistics in local browser storage
 
