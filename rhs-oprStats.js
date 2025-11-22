@@ -14,9 +14,7 @@
   const lStoreStats = selfname+"_Stats";
   const lStoreTypes = selfname+"_TypeCount";
   const lStoreCheck = selfname+"_IsChecked";
-  const lStoreCheckS2 = selfname+"_IsCheckedS2";
   const lStoreUpgrades = selfname+"_myUpgrades";
-  const mapId = "DEMO_MAP_ID";
 
   const myCssId = "oprStatsCSS";
   const myStyle = `
@@ -26,9 +24,8 @@
     table { margin-top: 10px; font-family: monospace
             background-color: #2d2d2d; width: 100%; }
     #reversebox { margin: 0 10px; }
-    #s2box { margin: 0 10px; }
     #buttonsdiv button { margin: 0 10px; }
-    #buttonsdiv, #statsdiv, #gamesdiv { margin-bottom: 2em; }
+    #buttonsdiv, #statsdiv, #typesdiv { margin-bottom: 2em; }
 
     #statsdiv table, td, th { border-color: black;}
     .dark #statsdiv table, td, th {
@@ -36,8 +33,8 @@
     }
   `;
 
-  let RHSstats, oprStats, isChecked, isCheckedS2;
-  let isInitialized = false;
+  let RHSstats, oprStats, isChecked;
+  const isInitialized = false;
 
   const body = document.getElementsByTagName("body")[0];
   const head = document.getElementsByTagName("head")[0];
@@ -51,10 +48,6 @@
         oprStats = wf;
         w.rhs.f.localGet(lStoreCheck, false).then((ic)=>{
           isChecked = ic;
-          w.rhs.f.localGet(lStoreCheckS2, false).then((s2c)=>{
-            isCheckedS2 = s2c;
-            isInitialized = true;
-          });
         });
       });
     });
@@ -169,7 +162,6 @@
     });
 
     isChecked = document.getElementById("reversebox").checked || false;
-    isCheckedS2 = document.getElementById("s2box").checked || false;
 
     // Body leeren
     body.innerHTML = null;
@@ -189,14 +181,13 @@
     head.appendChild(fav);
   }
 
-  /* PoGO zählen */
+  /* Reviews zählen */
   function handleReview() {
     if (!isInitialized) {
       return;
     }
 
     const newPortalData = w.rhs.g.reviewPageData();
-
     const type = newPortalData.type;
 
     // Statistik speichern
@@ -230,16 +221,12 @@
     // --- helper functions ---
     function addDivs() {
       const cText = isChecked ? "checked" : "";
-      const s2Text = isCheckedS2 ? "checked" : "";
       section.insertAdjacentHTML("beforeEnd",
         '<div id="statsdiv"></div>' +
-         '<div id="gamesdiv"></div>' +
+         '<div id="typesdiv"></div>' +
          '<div id="buttonsdiv" class="pull-right">reverse: <input type="checkbox" id="reversebox" ' + cText + "/>" +
          '<button class="button-primary" id="OPRStatsBtn">show my stats</button>'+
          '<button class="button-primary" id="OPRSUpgrBtn">show my upgrades</button>' +
-         '<button class="button-primary" id="OPRMarkBtn">OPR Marker Map</button>' +
-         '<button class="button-primary" id="OPRHeatBtn">OPR HeatMap</button>' +
-         'show S2 grid: <input type="checkbox" id="s2box" ' + s2Text + "/>" +
          "</div>"
       );
     }
@@ -340,136 +327,11 @@
           w.rhs.f.localSave(lStoreCheck, isChecked);
         });
       });
-
-      function showMap() {
-        let histText, innerScript = "";
-        // Body leeren
-        emptyPage(histText);
-
-        if ("OPRHeatBtn" === this.id ) {
-          histText = "/#oprheatmap";
-          w.rhs.f.localSave(lStoreCheckS2, isCheckedS2);
-          innerScript += `
-            function getPoints() {
-            return [`;
-          for (let i = RHSstats.length - 1; i > RHSstats.length -501; i--) {
-            // nur die neuesten 500
-            const lat = RHSstats[i].latE6/1E6;
-            const lng = RHSstats[i].lngE6/1E6;
-            innerScript += "new google.maps.LatLng("+lat+","+lng+"),";
-            if ( 0 === i) { break; }// weniger geht nicht
-          }
-          innerScript += `]}
-            heatmap = new google.maps.visualization.HeatmapLayer({
-              data: getPoints(),
-              opacity: 0.6,
-              map: map
-            });`;
-
-          if(isCheckedS2) {
-            innerScript += ` // S2 Grid
-              getGrid();
-              function idleGrid() {
-                overlay.updateGrid(map, 6, 'red', 2);
-              }
-              function getGrid() {
-                  overlay.drawCellGrid(map, 6, 'red', 2);
-                  map.addListener('idle', idleGrid);
-              }`;
-          }
-
-        } else if ("OPRMarkBtn" === this.id ) {
-          histText = "/#oprmarker";
-          const iconBase = "https://icons.iconarchive.com/icons/icons-land/vista-map-markers/32/";
-
-          for (let i = RHSstats.length - 1; i > RHSstats.length -501; i--) {
-            // nur die neuesten 500
-            const lat = RHSstats[i].latE6/1E6;
-            const lng = RHSstats[i].lngE6/1E6;
-            let ti1, ti2, ico;
-            const color = "Azure";
-            ti1 = ti2 = "";
-
-            switch (RHSstats[i].typ) {
-              case "EDIT":
-                ti1 = "Edit";
-                ico = "Map-Marker-Ball-Right-" + color + "-icon.png";
-                break;
-              case "NEW":
-                ti1 = "NEW ";
-                ico = "Map-Marker-Marker-Outside-"+color+"-icon.png";
-                break;
-              case "PHOTO":
-                ti1 = "Photo";
-                ico = "Map-Marker-Flag-1-Right-" + color + "-icon.png";
-                break;
-              default:
-                ti1 = "unknowm";
-                ico = "Map-Marker-Chequered-Flag-Right-" + color + "-icon.png";
-                break;
-            }
-            const title = ti1 + " " + ti2;
-            const icon = iconBase + ico;
-
-            innerScript += "const markerImg"+i+" = document.createElement(\"img\"); ";
-
-            innerScript += "markerImg"+i+".src = '" + icon + "';" +
-               "marker = new google.maps.marker.AdvancedMarkerElement({" +
-              "map," +
-              "position: {lat:"+lat+",lng:"+lng+"}," +
-              "title: '" + title + "'," +
-              "content: markerImg" + i +
-              "});\n";
-            if ( 0 === i) { break; }// weniger geht nicht
-          }
-        }
-
-        const style = document.createElement("style");
-        style.innerHTML= `#map { height: 100%; }
-                    html, body { height: 100%; margin: 0; padding: 0;}`;
-        head.appendChild(style);
-
-        body.insertAdjacentHTML("afterBegin", '<div id="map"></div>');
-
-        let script = document.createElement("script");
-        script.type = "text/javascript";
-        if(isCheckedS2) {
-          script.innerHTML=`
-            class S2Overlay{constructor(){this.polyLines=[]}check_map_bounds_ready(t){return!!t&&void 0!==t.getBounds&&void 0!==t.getBounds()}until(t,e){let n=r=>{t(e)?r():setTimeout(t=>n(r),400)};return new Promise(n)}updateGrid(t,e,n,r=1,o=null,l=null){this.polyLines.forEach(t=>{t.setMap(null)});let a=this.drawCellGrid(t,e,n,r);return null!==o&&this.drawCellGrid(t,o,l,2),a}async drawCellGrid(t,e,n,r=1){await this.until(this.check_map_bounds_ready,t);let o=t.getBounds(),l={},a=[];if(e>=2&&e<t.getZoom()+2){let i=t.getCenter(),u=S2.S2Cell.FromLatLng(this.getLatLngPoint(i),e);a.push(u),l[u.toString()]=!0;let $;for(;a.length>0;){$=a.pop();let s=$.getNeighbors();for(let c=0;c<s.length;c++){let g=s[c].toString();!l[g]&&(l[g]=!0,this.isCellOnScreen(o,s[c])&&a.push(s[c]))}this.drawCell(t,$,n,r)}}}drawCell(t,e,n,r){let o=e.getCornerLatLngs();o[4]=o[0];let l=new google.maps.Polyline({path:o,geodesic:!0,fillColor:"grey",fillOpacity:0,strokeColor:n,strokeOpacity:1,strokeWeight:r,map:t});this.polyLines.push(l)}getLatLngPoint(t){let e={lat:"function"==typeof t.lat?t.lat():t.lat,lng:"function"==typeof t.lng?t.lng():t.lng};return e}isCellOnScreen(t,e){let n=e.getCornerLatLngs();for(let r=0;r<n.length;r++)if(t.intersects(new google.maps.LatLngBounds(n[r])))return!0;return!1}}!function(t){"use strict";var e=t.S2={L:{}};e.L.LatLng=function(t,e,n){var r=parseFloat(t,10),o=parseFloat(e,10);if(isNaN(r)||isNaN(o))throw Error("Invalid LatLng object: ("+t+", "+e+")");return!0!==n&&(r=Math.max(Math.min(r,90),-90),o=(o+180)%360+(o<-180||180===o?180:-180)),{lat:r,lng:o}},e.L.LatLng.DEG_TO_RAD=Math.PI/180,e.L.LatLng.RAD_TO_DEG=180/Math.PI,e.LatLngToXYZ=function(t){var n=e.L.LatLng.DEG_TO_RAD,r=t.lat*n,o=t.lng*n,l=Math.cos(r);return[Math.cos(o)*l,Math.sin(o)*l,Math.sin(r)]},e.XYZToLatLng=function(t){var n=e.L.LatLng.RAD_TO_DEG,r=Math.atan2(t[2],Math.sqrt(t[0]*t[0]+t[1]*t[1])),o=Math.atan2(t[1],t[0]);return e.L.LatLng(r*n,o*n)};var n=function(t){var e=[Math.abs(t[0]),Math.abs(t[1]),Math.abs(t[2])];return e[0]>e[1]?e[0]>e[2]?0:2:e[1]>e[2]?1:2},r=function(t,e){var n,r;switch(t){case 0:n=e[1]/e[0],r=e[2]/e[0];break;case 1:n=-e[0]/e[1],r=e[2]/e[1];break;case 2:n=-e[0]/e[2],r=-e[1]/e[2];break;case 3:n=e[2]/e[0],r=e[1]/e[0];break;case 4:n=e[2]/e[1],r=-e[0]/e[1];break;case 5:n=-e[1]/e[2],r=-e[0]/e[2];break;default:throw{error:"Invalid face"}}return[n,r]};e.XYZToFaceUV=function(t){var e=n(t);t[e]<0&&(e+=3);var o=r(e,t);return[e,o]},e.FaceUVToXYZ=function(t,e){var n=e[0],r=e[1];switch(t){case 0:return[1,n,r];case 1:return[-n,1,r];case 2:return[-n,-r,1];case 3:return[-1,-r,-n];case 4:return[r,-1,-n];case 5:return[r,n,-1];default:throw{error:"Invalid face"}}};var o=function(t){return t>=.5?1/3*(4*t*t-1):1/3*(1-4*(1-t)*(1-t))};e.STToUV=function(t){return[o(t[0]),o(t[1])]};var l=function(t){return t>=0?.5*Math.sqrt(1+3*t):1-.5*Math.sqrt(1-3*t)};e.UVToST=function(t){return[l(t[0]),l(t[1])]},e.STToIJ=function(t,e){var n=1<<e,r=function(t){return Math.max(0,Math.min(n-1,Math.floor(t*n)))};return[r(t[0]),r(t[1])]},e.IJToST=function(t,e,n){var r=1<<e;return[(t[0]+n[0])/r,(t[1]+n[1])/r]};var a=function(t,e,n,r){if(0==r){1==n&&(e.x=t-1-e.x,e.y=t-1-e.y);var o=e.x;e.x=e.y,e.y=o}},i=function(t,e,n,r){var o={a:[[0,"d"],[1,"a"],[3,"b"],[2,"a"]],b:[[2,"b"],[1,"b"],[3,"a"],[0,"c"]],c:[[2,"c"],[3,"d"],[1,"c"],[0,"b"]],d:[[0,"a"],[3,"c"],[1,"d"],[2,"d"]]};"number"!=typeof r&&console.warn(Error("called pointToHilbertQuadList without face value, defaulting to '0'").stack);for(var l=r%2?"d":"a",a=[],i=n-1;i>=0;i--){var u=1<<i,$=t&u?1:0,s=e&u?1:0,c=o[l][2*$+s];a.push(c[0]),l=c[1]}return a};e.S2Cell=function(){},e.S2Cell.FromHilbertQuadKey=function(t){var n,r,o,l,i,u,$=t.split("/"),s=parseInt($[0]),c=$[1],g=c.length,_={x:0,y:0};for(n=g-1;n>=0;n--)r=g-n,o=c[n],l=0,i=0,"1"===o?i=1:"2"===o?(l=1,i=1):"3"===o&&(l=1),a(u=Math.pow(2,r-1),_,l,i),_.x+=u*l,_.y+=u*i;if(s%2==1){var f=_.x;_.x=_.y,_.y=f}return e.S2Cell.FromFaceIJ(parseInt(s),[_.x,_.y],r)},e.S2Cell.FromLatLng=function(t,n){if(!t.lat&&0!==t.lat||!t.lng&&0!==t.lng)throw Error("Pass { lat: lat, lng: lng } to S2.S2Cell.FromLatLng");var r=e.LatLngToXYZ(t),o=e.XYZToFaceUV(r),l=e.UVToST(o[1]),a=e.STToIJ(l,n);return e.S2Cell.FromFaceIJ(o[0],a,n)},e.S2Cell.FromFaceIJ=function(t,n,r){var o=new e.S2Cell;return o.face=t,o.ij=n,o.level=r,o},e.S2Cell.prototype.toString=function(){return"F"+this.face+"ij["+this.ij[0]+","+this.ij[1]+"]@"+this.level},e.S2Cell.prototype.getLatLng=function(){var t=e.IJToST(this.ij,this.level,[.5,.5]),n=e.STToUV(t),r=e.FaceUVToXYZ(this.face,n);return e.XYZToLatLng(r)},e.S2Cell.prototype.getCornerLatLngs=function(){for(var t=[],n=[[0,0],[0,1],[1,1],[1,0]],r=0;r<4;r++){var o=e.IJToST(this.ij,this.level,n[r]),l=e.STToUV(o),a=e.FaceUVToXYZ(this.face,l);t.push(e.XYZToLatLng(a))}return t},e.S2Cell.prototype.getFaceAndQuads=function(){var t=i(this.ij[0],this.ij[1],this.level,this.face);return[this.face,t]},e.S2Cell.prototype.toHilbertQuadkey=function(){var t=i(this.ij[0],this.ij[1],this.level,this.face);return this.face.toString(10)+"/"+t.join("")},e.latLngToNeighborKeys=e.S2Cell.latLngToNeighborKeys=function(t,n,r){return e.S2Cell.FromLatLng({lat:t,lng:n},r).getNeighbors().map(function(t){return t.toHilbertQuadkey()})},e.S2Cell.prototype.getNeighbors=function(){var t=function(t,n,r){var o=1<<r;if(n[0]>=0&&n[1]>=0&&n[0]<o&&n[1]<o)return e.S2Cell.FromFaceIJ(t,n,r);var l=e.IJToST(n,r,[.5,.5]),a=e.STToUV(l),i=e.FaceUVToXYZ(t,a),u=e.XYZToFaceUV(i);return t=u[0],a=u[1],l=e.UVToST(a),n=e.STToIJ(l,r),e.S2Cell.FromFaceIJ(t,n,r)},n=this.face,r=this.ij[0],o=this.ij[1],l=this.level;return[t(n,[r-1,o],l),t(n,[r,o-1],l),t(n,[r+1,o],l),t(n,[r,o+1],l)]},e.FACE_BITS=3,e.MAX_LEVEL=30,e.POS_BITS=2*e.MAX_LEVEL+1,e.facePosLevelToId=e.S2Cell.facePosLevelToId=e.fromFacePosLevel=function(n,r,o){var l,a,i,u=t.dcodeIO&&t.dcodeIO.Long||require("long");for(o||(o=r.length),r.length>o&&(r=r.substr(0,o)),l=u.fromString(n.toString(10),!0,10).toString(2);l.length<e.FACE_BITS;)l="0"+l;for(a=u.fromString(r,!0,4).toString(2);a.length<2*o;)a="0"+a;for(i=l+a,i+="1";i.length<e.FACE_BITS+e.POS_BITS;)i+="0";return u.fromString(i,!0,2).toString(10)},e.keyToId=e.S2Cell.keyToId=e.toId=e.toCellId=e.fromKey=function(t){var n=t.split("/");return e.fromFacePosLevel(n[0],n[1],n[1].length)},e.idToKey=e.S2Cell.idToKey=e.S2Cell.toKey=e.toKey=e.fromId=e.fromCellId=e.S2Cell.toHilbertQuadkey=e.toHilbertQuadkey=function(n){for(var r=t.dcodeIO&&t.dcodeIO.Long||require("long"),o=r.fromString(n,!0,10).toString(2);o.length<e.FACE_BITS+e.POS_BITS;)o="0"+o;for(var l=o.lastIndexOf("1"),a=o.substring(0,3),i=o.substring(3,l),u=i.length/2,$=r.fromString(a,!0,2).toString(10),s=r.fromString(i,!0,2).toString(4);s.length<u;)s="0"+s;return $+"/"+s},e.keyToLatLng=e.S2Cell.keyToLatLng=function(t){return e.S2Cell.FromHilbertQuadKey(t).getLatLng()},e.idToLatLng=e.S2Cell.idToLatLng=function(t){var n=e.idToKey(t);return e.keyToLatLng(n)},e.S2Cell.latLngToKey=e.latLngToKey=e.latLngToQuadkey=function(t,n,r){if(isNaN(r)||r<1||r>30)throw Error("'level' is not a number between 1 and 30 (but it should be)");return e.S2Cell.FromLatLng({lat:t,lng:n},r).toHilbertQuadkey()},e.stepKey=function(e,n){var r,o=t.dcodeIO&&t.dcodeIO.Long||require("long"),l=e.split("/"),a=l[0],i=l[1],u=l[1].length,$=o.fromString(i,!0,4);n>0?r=$.add(Math.abs(n)):n<0&&(r=$.subtract(Math.abs(n)));var s=r.toString(4);for("0"===s&&console.warning(Error("face/position wrapping is not yet supported"));s.length<u;)s="0"+s;return a+"/"+s},e.S2Cell.prevKey=e.prevKey=function(t){return e.stepKey(t,-1)},e.S2Cell.nextKey=e.nextKey=function(t){return e.stepKey(t,1)}}("undefined"!=typeof module?module.exports:window);
-            let overlay = new S2Overlay();
-            `;
-        }
-        script.innerHTML += `
-          async function initMap() {
-            const { Map } = await google.maps.importLibrary("maps");
-            map = new Map(document.getElementById('map'), {
-              zoom: 7,
-              center: {lat: 51.38, lng: 10.12},
-              mapTypeId: 'hybrid',
-              mapId: '${mapId}'
-            })`;
-
-        script.innerHTML += innerScript + "}";
-
-        body.appendChild(script);
-
-        script = document.createElement("script");
-        script.type = "text/javascript";
-        script.setAttribute("async", "");
-        script.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=$__GOOGLE_MAPS_KEY__&libraries=visualization,geometry,marker&loading=async&callback=initMap");
-        body.appendChild(script);
-      }
-
-      // Marker Map
-      document.getElementById("OPRHeatBtn").addEventListener("click", showMap);
-
-      // Heatmap
-      document.getElementById("OPRMarkBtn").addEventListener("click", showMap);
     }
 
-    function showGamesTable() {
-      const gamesdiv = document.getElementById("gamesdiv");
-      gamesdiv.insertAdjacentHTML("afterBegin",
+    function showTypesTable() {
+      const typesdiv = document.getElementById("typesdiv");
+      typesdiv.insertAdjacentHTML("afterBegin",
         '<table border="2"><colgroup><col width="26%"><col width="10%"><col width="10%"><col width="10%">' +
         '<col width="10%"><col width="10%"><col width="10%"><col width="14%"></colgroup>' +
         '<thead><tr><th></th><th colspan="2">Nominations</th>' +
@@ -516,7 +378,7 @@
 
     addDivs();
     showStatsTable();
-    showGamesTable();
+    showTypesTable();
     buttonFuncs();
 
   }
