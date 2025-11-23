@@ -37,7 +37,7 @@
 
   const skipNamesCommon = ["description", "title"];
 
-  // const notificationCounter = 0;
+  // let notificationCounter = 0;
 
   const matrix = [
     [85, +6, +7, +6, +6, 81, +6, +0, +3, 85, +5, 84, -1, +8, +6, +0, -1, +3, +7, 86, +2, +8, +4, 81, +7, +7, +5, 82, +4, +0, 82, 85, 75, -1, +7, 7],
