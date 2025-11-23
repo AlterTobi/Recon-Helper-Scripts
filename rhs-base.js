@@ -870,6 +870,7 @@
   }
 
   /* ================ Events mitloggen ======================= */
+  /*
   const originalDispatchEvent = EventTarget.prototype.dispatchEvent;
 
   EventTarget.prototype.dispatchEvent = function(event) {
@@ -897,7 +898,7 @@
     // Original-Dispatch ausführen
     return originalDispatchEvent.call(this, event);
   };
-
+*/
   /* ================ Events mitloggen ======================= */
 
   /* we are done :-) */

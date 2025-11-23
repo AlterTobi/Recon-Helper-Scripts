@@ -16,7 +16,15 @@ Install [RHS Base](rhs-base.user.js) first!
 ---
 
 ## List of scripts
-(will be added after the launch of OPR)
+(sorted alphabetically - more scripts will be added gradually)
+* [Add Translation Button](rhs-addTranslationButtons.user.js)
+    - adds tools to translate text associated with a wayspot
+* [AutoHold](rhs-autoHold.user.js)
+    - searches for '#hold' in supporting statement and puts nomination on hold ([documentation](en/autohold.html))
+* [Dupes Scroll](rhs-dupesScroll.user.js)
+    - use mouse wheel to scroll the dupes filmstrip
+* [OPR Stats](rhs-oprStats.user.js)
+    - saves some personal statistics in local browser storage
 
 ---
 
