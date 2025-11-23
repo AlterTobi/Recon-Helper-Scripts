@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.0.7
+// @version      0.0.8
 // @description  basic functionality for OPR
 // @author       AlterTobi
 // @run-at       document-start
