@@ -21,6 +21,8 @@ Install [RHS Base](rhs-base.user.js) first!
     - adds tools to translate text associated with a wayspot
 * [AutoHold](rhs-autoHold.user.js)
     - searches for '#hold' in supporting statement and puts nomination on hold ([documentation](en/autohold.html))
+* [Dupes Scroll](rhs-dupesScroll.user.js)
+    - use mouse wheel to scroll the dupes filmstrip
 * [OPR Stats](rhs-oprStats.user.js)
     - saves some personal statistics in local browser storage
 
