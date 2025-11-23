@@ -7,6 +7,7 @@
   "use strict";
   const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
 
+  const logoElem = "wf-logo";
   const sessvarMiss = "warnBase";
   const myCSSId = "rhsExpireCSS";
   const myStyle = `.rhsExpire {
@@ -14,8 +15,11 @@
       margin-left: 2em;
       padding-top: 0.3em;
       text-align: center;
-      display: flex;
-      align-items: center;
+      display: block;
+    }
+    .rhsExpireCounter {
+      font-size: 20px;
+      color: #20B8E3;
     }
     .dark .rhsExpire {
       color: #ddd;
@@ -57,16 +61,16 @@
 
   function createTimer(message) {
     w.rhs.f.addCSS(myCSSId, myStyle);
-    w.rhs.f.awaitElem("wf-logo").then(elem=>{
+    w.rhs.f.awaitElem(logoElem).then(elem=>{
       const div = document.createElement("div");
       div.className = "rhsExpire";
       div.id = buttonID;
-      const expireTimer = document.createElement("span");
+      const expireTimer = document.createElement("p");
       expireTimer.appendChild(document.createTextNode(message));
       div.appendChild(expireTimer);
-      timeElem = document.createElement("div");
+      timeElem = document.createElement("p");
       timeElem.appendChild(document.createTextNode("??:??"));
-      timeElem.style.display = "inline-block";
+      timeElem.className = "rhsExpireCounter";
       div.appendChild(timeElem);
       const container = elem.parentNode.parentNode;
       container.appendChild(div);
