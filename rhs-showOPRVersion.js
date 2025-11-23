@@ -1,5 +1,5 @@
 // @name         show OPR version
-// @version      0.0.1
+// @version      1.0.0
 // @description  show current OPR version
 // @author       AlterTobi
 
