@@ -37,8 +37,6 @@
 
   const skipNamesCommon = ["description", "title"];
 
-  let notificationCounter = 0;
-
   const matrix = [
     [85, +6, +7, +6, +6, 81, +6, +0, +3, 85, +5, 84, -1, +8, +6, +0, -1, +3, +7, 86, +2, +8, +4, 81, +7, +7, +5, 82, +4, +0, 82, 85, 75, -1, +7, 7],
     [84, +7, +6, +7, +7, 80, +7, +1, +2, 84, +4, 85, -1, +9, +7, +1, -1, +2, +6, 87, +3, +9, +5, 80, +6, +6, +4, 83, +5, +1, 83, 84, -1, +7, +6, 6],
@@ -250,6 +248,7 @@
 
   /* ================ Events mitloggen ======================= */
   /*
+  const notificationCounter = 0;
   const originalDispatchEvent = EventTarget.prototype.dispatchEvent;
 
   EventTarget.prototype.dispatchEvent = function(event) {

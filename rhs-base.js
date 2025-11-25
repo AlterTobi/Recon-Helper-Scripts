@@ -835,9 +835,11 @@
   w.rhs.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
       resolve(userID);
-         })
-    .catch((e) => {console.warn(GM_info.script.name, ": ", e);
-    reject();});
+    })
+      .catch((e) => {
+        console.warn(GM_info.script.name, ": ", e);
+        reject();
+      });
   });
   w.rhs.g.wfPages = function() {
     return jCopy(rhs.OPR_PAGES);
