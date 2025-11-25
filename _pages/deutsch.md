@@ -23,6 +23,8 @@ Zuerst [RHS Base](rhs-base.user.js) installieren!
     - erkennt '#hold' im Zusatztext und stellt Nominierung zurück ([Dokumentation](de/autohold.html))
 * [Dupes Scroll](rhs-dupesScroll.user.js)
     - Nutze das Mausrad zum Scrollen in der Dupes-Liste
+* [ImageMod](rhss-imageMod.user.js)
+    - öffne Originalfotos in "benannten" Tabs
 * [OPR Stats](rhs-oprStats.user.js)
     - speichert persönliche Statistiken im Browser Local Storage
 
