@@ -23,8 +23,13 @@ Install [RHS Base](rhs-base.user.js) first!
     - searches for '#hold' in supporting statement and puts nomination on hold ([documentation](en/autohold.html))
 * [Dupes Scroll](rhs-dupesScroll.user.js)
     - use mouse wheel to scroll the dupes filmstrip
+* [ImageMod](rhss-imageMod.user.js)
+    - open fullsize images in "named" tabs
 * [OPR Stats](rhs-oprStats.user.js)
     - saves some personal statistics in local browser storage
+* [Review Improve CSS](en/reviewImproveCSS.html)
+    - increases height for images and titel/description cards
+    - removes padding and description text
 
 ---
 

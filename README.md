@@ -21,7 +21,7 @@ Pull-Requests are welcome.
 
 Tools und Skripte für NianticSpatial Recon
 
-### What is it?
+### Was ist das?
 Userskripte für [NIANTICSPATIAL PORTAl RECON](https://opr.ingress.com/new/)
 
 ### Download 
