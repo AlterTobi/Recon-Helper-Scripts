@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.0.7
+// @version      0.0.8
 // @description  basic functionality for OPR
 // @author       AlterTobi
 // @run-at       document-start
@@ -312,9 +312,6 @@
         case PREFIX + "profile":
           rhs.currentPage = rhs.OPR_PAGES.PROFILE;
           rhs.profile = json.result;
-
-          console.log( GM_info.script.name, " sende Events Profile");
-
           w.dispatchEvent(new Event("OPRProfileLoaded"));
           w.dispatchEvent(new Event("OPRPageLoaded"));
 
@@ -378,7 +375,7 @@
     this._method = method;
     // console.log( "RHS OPEN: ", method, url );
     if (PREFIX === this._url.substr(0, PREFIX.length)) {
-      // handle only Wayfarer URLs
+      // handle only OPR URLs
       this.addEventListener("load", handleLoadEvent);
     }
     return openOrig.apply(this, arguments);
@@ -838,7 +835,11 @@
   w.rhs.g.userId = new Promise((resolve, reject) => {
     getUserId().then((userID) => {
       resolve(userID);
-    });
+    })
+      .catch((e) => {
+        console.warn(GM_info.script.name, ": ", e);
+        reject();
+      });
   });
   w.rhs.g.wfPages = function() {
     return jCopy(rhs.OPR_PAGES);
@@ -868,38 +869,6 @@
     w.rhs.f.addCSS(myCssId, myStyle);
     w.rhs.f.createNotificationArea();
   }
-
-  /* ================ Events mitloggen ======================= */
-  /*
-  const originalDispatchEvent = EventTarget.prototype.dispatchEvent;
-
-  EventTarget.prototype.dispatchEvent = function(event) {
-    try {
-      const name = event.type;
-      const target = this;
-
-      // Farbcode nach Event-Typ wählen (optional)
-      let color = "color: gray";
-      if (name.startsWith("WFES")) {color = "color: #0078ff; font-weight: bold";} else if (name.startsWith("OPR")) {color = "color: #ff08ff; font-weight: bold";} else if (name.startsWith("click")) {color = "color: #00aa00";} else if (name.startsWith("keydown") || name.startsWith("keyup")) {color = "color: #aa00aa";} else if (name.startsWith("input")) {color = "color: #ff8800";}
-
-      // Konsolenausgabe
-      console.log(
-        `%c[Event]%c ${name}%c → %o`,
-        "color: #888; font-weight: bold",
-        color,
-        "color: #666",
-        target
-      );
-
-    } catch (err) {
-      console.error("Fehler im dispatchEvent-Hook:", err);
-    }
-
-    // Original-Dispatch ausführen
-    return originalDispatchEvent.call(this, event);
-  };
-*/
-  /* ================ Events mitloggen ======================= */
 
   /* we are done :-) */
   console.log("Script loaded:", GM_info.script.name, "v" + GM_info.script.version);

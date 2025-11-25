@@ -4,7 +4,7 @@ Bist du auch zu faul, unterwegs beim Einreichen lange Texte zu tippen und bearbe
 
 Schreibe einfach **#hold** oder **Platzhalter** irgendwo in den Zusatztext (**,yxcv** geht auch ^^). Nach dem Hochladen öffnest du OPR und gehst auf die Seite Beiträge.
 Nun erkennt das Tool den Text und setzt die entsprechenden Einreichungen automatisch auf "zurückgestellt". Bei vielen Einreichungen dauert es eine Weile, da
-eine Pause eingebaut ist, um nicht zu viele Anfragen zu schnell an den Wayfarer Server zu senden.
+eine Pause eingebaut ist, um nicht zu viele Anfragen zu schnell an den OPR Server zu senden.
 
 Wenn der Vorgang abgeschlossen ist und die grüne Meldung erscheint, kannst du die Seite
 neu laden, damit der geänderte Status angezeigt wird.

@@ -1,5 +1,5 @@
 // @name Review Improve CSS
-// @version 0.0.3
+// @version 1.0.0
 // @description CSS modifcations for OPR
 // @author AlterTobi
 

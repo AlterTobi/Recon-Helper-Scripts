@@ -1,5 +1,5 @@
 // @name         Debug
-// @version      0.0.6
+// @version      0.0.7
 // @description  show some debugging info
 // @author       AlterTobi
 
@@ -36,8 +36,6 @@
   `;
 
   const skipNamesCommon = ["description", "title"];
-
-  // let notificationCounter = 0;
 
   const matrix = [
     [85, +6, +7, +6, +6, 81, +6, +0, +3, 85, +5, 84, -1, +8, +6, +0, -1, +3, +7, 86, +2, +8, +4, 81, +7, +7, +5, 82, +4, +0, 82, 85, 75, -1, +7, 7],
@@ -248,18 +246,48 @@
   w.addEventListener("OPRHelpPageLoaded", removeInfobox);
   w.addEventListener("OPRSettingsLoaded", removeInfobox);
 
-  // Events abfangen
+  /* ================ Events mitloggen ======================= */
   /*
+  const notificationCounter = 0;
+  const originalDispatchEvent = EventTarget.prototype.dispatchEvent;
+
+  EventTarget.prototype.dispatchEvent = function(event) {
+    try {
+      const name = event.type;
+      const target = this;
+
+      // Farbcode nach Event-Typ wählen (optional)
+      let color = "color: gray";
+      if (name.startsWith("OPR")) {color = "color: #ff08ff; font-weight: bold";} else if (name.startsWith("click")) {color = "color: #00aa00";} else if (name.startsWith("keydown") || name.startsWith("keyup")) {color = "color: #aa00aa";} else if (name.startsWith("input")) {color = "color: #ff8800";}
+
+      // Konsolenausgabe
+      console.log(
+        `%c[Event]%c ${name}%c → %o`,
+        "color: #888; font-weight: bold",
+        color,
+        "color: #666",
+        target
+      );
+
+      if (name.startsWith("OPR")) {
+        const jetzt = new Date().toLocaleTimeString("de-DE");
+        w.rhs.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+      }
+
+    } catch (err) {
+      console.error("Fehler im dispatchEvent-Hook:", err);
+    }
+
+    // Original-Dispatch ausführen
+    return originalDispatchEvent.call(this, event);
+  };
+
   const originalDispatch = w.dispatchEvent;
   w.dispatchEvent = function(event) {
-    if (event.type.startsWith("OPR")) {
-      const jetzt = new Date().toLocaleTimeString("de-DE");
-      // console.log(GM_info.script.name, "Event:", event.type);
-      w.rhs.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
-    }
     return originalDispatch.call(this, event);
   };
   */
+  /* ================ Events mitloggen ======================= */
 
   // === no changes needed below this line ======================
   if("undefined" === typeof(rhs)) {
