@@ -27,6 +27,9 @@ Install [RHS Base](rhs-base.user.js) first!
     - open fullsize images in "named" tabs
 * [OPR Stats](rhs-oprStats.user.js)
     - saves some personal statistics in local browser storage
+* [Review Improve CSS](en/reviewImproveCSS.html)
+    - increases height for images and titel/description cards
+    - removes padding and description text
 
 ---
 

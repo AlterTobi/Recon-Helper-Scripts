@@ -27,6 +27,8 @@ Zuerst [RHS Base](rhs-base.user.js) installieren!
     - öffne Originalfotos in "benannten" Tabs
 * [OPR Stats](rhs-oprStats.user.js)
     - speichert persönliche Statistiken im Browser Local Storage
+* [Review Improve CSS](de/reviewImproveCSS.html)
+    - Verschiedene Layout-Änderungen für Bewertungen am Desktop
 
 ---
 
