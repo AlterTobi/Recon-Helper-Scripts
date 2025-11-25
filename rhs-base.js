@@ -378,7 +378,7 @@
     this._method = method;
     // console.log( "RHS OPEN: ", method, url );
     if (PREFIX === this._url.substr(0, PREFIX.length)) {
-      // handle only Wayfarer URLs
+      // handle only OPR URLs
       this.addEventListener("load", handleLoadEvent);
     }
     return openOrig.apply(this, arguments);
