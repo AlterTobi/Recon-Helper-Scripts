@@ -21,6 +21,8 @@ Zuerst [RHS Base](rhs-base.user.js) installieren!
     - zeigt bei Standortbearbeitung einen Marker für den Originalstandort 
 * [Add Translation Button](rhs-addTranslationButtons.user.js)
     - fügt Möglichkeiten zum Übersetzen der Texte hinzu
+* [Anti Social](rhs-antiSocial.user.js)
+    - versteckt die Gruppengrößenauswahl bei "Kontakte knüpfen"
 * [AutoHold](rhs-autoHold.user.js)
     - erkennt '#hold' im Zusatztext und stellt Nominierung zurück ([Dokumentation](de/autohold.html))
 * [Dupes Scroll](rhs-dupesScroll.user.js)

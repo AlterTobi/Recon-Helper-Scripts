@@ -21,6 +21,8 @@ Install [RHS Base](rhs-base.user.js) first!
     - add marker for original location on location edits
 * [Add Translation Button](rhs-addTranslationButtons.user.js)
     - adds tools to translate text associated with a wayspot
+* [Anti Social](rhs-antiSocial.user.js)
+    - hides group size selection from socialize card
 * [AutoHold](rhs-autoHold.user.js)
     - searches for '#hold' in supporting statement and puts nomination on hold ([documentation](en/autohold.html))
 * [Dupes Scroll](rhs-dupesScroll.user.js)
