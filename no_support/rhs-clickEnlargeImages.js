@@ -11,10 +11,17 @@
   const l2Sel = "app-supporting-info-b > wf-review-card-b > div.wf-review-card__body > div > a.lupe";
 
   function click() {
-    w.rhs.f.awaitElem(l2Sel).then((elem)=>{ elem.click(); })
+    w.rhs.f.awaitElem(l2Sel)
+      .then((elem)=>{
+        elem.click();
+        console.log(GM_info.script.name, " - klick supporting image");
+      })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
     w.rhs.f.awaitElem(l1Sel)
-      .then((elem)=>{ elem.click(); })
+      .then((elem)=>{
+        elem.click();
+        console.log(GM_info.script.name, " - klick main image");
+      })
       .catch((e) => {console.warn(GM_info.script.name, ": ", e);});
   }
 
