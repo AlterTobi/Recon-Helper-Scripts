@@ -17,6 +17,8 @@ Zuerst [RHS Base](rhs-base.user.js) installieren!
 
 ## Liste der Skripte
 (alphabetisch sortiert - weitere Skripte werden nach und nach hinzugefügt)
+* [Add Orig Location](rhs-reviewAddOrigLocation.user.js)
+    - zeigt bei Standortbearbeitung einen Marker für den Originalstandort 
 * [Add Translation Button](rhs-addTranslationButtons.user.js)
     - fügt Möglichkeiten zum Übersetzen der Texte hinzu
 * [AutoHold](rhs-autoHold.user.js)

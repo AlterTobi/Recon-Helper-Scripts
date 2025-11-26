@@ -17,6 +17,8 @@ Install [RHS Base](rhs-base.user.js) first!
 
 ## List of scripts
 (sorted alphabetically - more scripts will be added gradually)
+* [Add Orig Location](rhs-reviewAddOrigLocation.user.js)
+    - add marker for original location on location edits
 * [Add Translation Button](rhs-addTranslationButtons.user.js)
     - adds tools to translate text associated with a wayspot
 * [AutoHold](rhs-autoHold.user.js)
