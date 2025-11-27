@@ -7,6 +7,7 @@
   "use strict";
   const w = "undefined" === typeof unsafeWindow ? window : unsafeWindow;
   const sessvarMiss = "warnBase";
+  const enableEventDebug = true;
 
   // const mainContentSelector = "app-wayfarer > div > mat-sidenav-container > mat-sidenav-content";
   const profileImageSelector = "app-root > app-wayfarer > div > wf-header > div > a";
@@ -247,46 +248,46 @@
   w.addEventListener("OPRSettingsLoaded", removeInfobox);
 
   /* ================ Events mitloggen ======================= */
-  /*
-  const notificationCounter = 0;
-  const originalDispatchEvent = EventTarget.prototype.dispatchEvent;
+  if (enableEventDebug) {
+    let notificationCounter = 0;
+    const originalDispatchEvent = EventTarget.prototype.dispatchEvent;
 
-  EventTarget.prototype.dispatchEvent = function(event) {
-    try {
-      const name = event.type;
-      const target = this;
+    EventTarget.prototype.dispatchEvent = function(event) {
+      try {
+        const name = event.type;
+        const target = this;
 
-      // Farbcode nach Event-Typ wählen (optional)
-      let color = "color: gray";
-      if (name.startsWith("OPR")) {color = "color: #ff08ff; font-weight: bold";} else if (name.startsWith("click")) {color = "color: #00aa00";} else if (name.startsWith("keydown") || name.startsWith("keyup")) {color = "color: #aa00aa";} else if (name.startsWith("input")) {color = "color: #ff8800";}
+        // Farbcode nach Event-Typ wählen (optional)
+        let color = "color: gray";
+        if (name.startsWith("OPR")) {color = "color: #ff08ff; font-weight: bold";} else if (name.startsWith("click")) {color = "color: #00aa00";} else if (name.startsWith("keydown") || name.startsWith("keyup")) {color = "color: #aa00aa";} else if (name.startsWith("input")) {color = "color: #ff8800";}
 
-      // Konsolenausgabe
-      console.log(
-        `%c[Event]%c ${name}%c → %o`,
-        "color: #888; font-weight: bold",
-        color,
-        "color: #666",
-        target
-      );
+        // Konsolenausgabe
+        console.log(
+          `%c[Event]%c ${name}%c → %o`,
+          "color: #888; font-weight: bold",
+          color,
+          "color: #666",
+          target
+        );
 
-      if (name.startsWith("OPR")) {
-        const jetzt = new Date().toLocaleTimeString("de-DE");
-        w.rhs.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+        if (name.startsWith("OPR")) {
+          const jetzt = new Date().toLocaleTimeString("de-DE");
+          w.rhs.f.createNotification(jetzt + " #" + ++notificationCounter + " " + event.type, "fuchsia", {autoclose: 30});
+        }
+
+      } catch (err) {
+        console.error("Fehler im dispatchEvent-Hook:", err);
       }
 
-    } catch (err) {
-      console.error("Fehler im dispatchEvent-Hook:", err);
-    }
+      // Original-Dispatch ausführen
+      return originalDispatchEvent.call(this, event);
+    };
 
-    // Original-Dispatch ausführen
-    return originalDispatchEvent.call(this, event);
-  };
-
-  const originalDispatch = w.dispatchEvent;
-  w.dispatchEvent = function(event) {
-    return originalDispatch.call(this, event);
-  };
-  */
+    const originalDispatch = w.dispatchEvent;
+    w.dispatchEvent = function(event) {
+      return originalDispatch.call(this, event);
+    };
+  }
   /* ================ Events mitloggen ======================= */
 
   // === no changes needed below this line ======================
