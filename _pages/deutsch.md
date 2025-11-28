@@ -34,6 +34,13 @@ Zuerst [RHS Base](rhs-base.user.js) installieren!
 * [Review Improve CSS](de/reviewImproveCSS.html)
     - Verschiedene Layout-Änderungen für Bewertungen am Desktop
 
+### Nichtunterstützte Skripte / Skripte in Entwicklung
+Es ist nicht garantiert, dass diese Skripte funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
+Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
+
+* [Disable Text Diff](rhs-disableTextDiff.user.js)
+     - schaltet Niantics Text-Diff aus, indem der Schalter gedrückt wird
+
 ---
 
 ## Fehler und bekannte Probleme

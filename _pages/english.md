@@ -35,6 +35,13 @@ Install [RHS Base](rhs-base.user.js) first!
     - increases height for images and titel/description cards
     - removes padding and description text
 
+### Unsupported scripts / scripts in development
+These scripts may work or not. If you are a developer, have a look at it and fix bugs. :-)
+Other scripts are new, untested or still in development.
+
+* [Disable Text Diff](rhs-disableTextDiff.user.js)
+     -  disables the Niantic text diff display by clicking at the slider
+
 ---
 
 ## Bugs and known problems
