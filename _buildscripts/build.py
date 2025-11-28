@@ -157,7 +157,7 @@ def fill_meta(source, script_name):
   if keys.isdisjoint({'match', 'include'}):
     append_line('match', cfg['match'])
 
-  # append_line('grant', 'none')
+  append_line('grant', 'none')
   meta.append('// ==/UserScript==\n\n')
   
   sl = '  * [{}]({}) {}\n    - {}\n'.format(sname,surl,sversion,sdescription)
