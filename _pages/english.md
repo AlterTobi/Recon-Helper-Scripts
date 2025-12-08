@@ -17,19 +17,30 @@ Install [RHS Base](rhs-base.user.js) first!
 
 ## List of scripts
 (sorted alphabetically - more scripts will be added gradually)
+* [Add Orig Location](rhs-reviewAddOrigLocation.user.js)
+    - add marker for original location on location edits
 * [Add Translation Button](rhs-addTranslationButtons.user.js)
     - adds tools to translate text associated with a wayspot
+* [Anti Social](rhs-antiSocial.user.js)
+    - hides group size selection from socialize card
 * [AutoHold](rhs-autoHold.user.js)
     - searches for '#hold' in supporting statement and puts nomination on hold ([documentation](en/autohold.html))
 * [Dupes Scroll](rhs-dupesScroll.user.js)
     - use mouse wheel to scroll the dupes filmstrip
-* [ImageMod](rhss-imageMod.user.js)
+* [ImageMod](rhs-imageMod.user.js)
     - open fullsize images in "named" tabs
 * [OPR Stats](rhs-oprStats.user.js)
     - saves some personal statistics in local browser storage
 * [Review Improve CSS](en/reviewImproveCSS.html)
     - increases height for images and titel/description cards
     - removes padding and description text
+
+### Unsupported scripts / scripts in development
+These scripts may work or not. If you are a developer, have a look at it and fix bugs. :-)
+Other scripts are new, untested or still in development.
+
+* [Disable Text Diff](rhs-disableTextDiff.user.js)
+     -  disables the Niantic text diff display by clicking at the slider
 
 ---
 

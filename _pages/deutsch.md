@@ -17,18 +17,29 @@ Zuerst [RHS Base](rhs-base.user.js) installieren!
 
 ## Liste der Skripte
 (alphabetisch sortiert - weitere Skripte werden nach und nach hinzugefügt)
+* [Add Orig Location](rhs-reviewAddOrigLocation.user.js)
+    - zeigt bei Standortbearbeitung einen Marker für den Originalstandort
 * [Add Translation Button](rhs-addTranslationButtons.user.js)
     - fügt Möglichkeiten zum Übersetzen der Texte hinzu
+* [Anti Social](rhs-antiSocial.user.js)
+    - versteckt die Gruppengrößenauswahl bei "Kontakte knüpfen"
 * [AutoHold](rhs-autoHold.user.js)
     - erkennt '#hold' im Zusatztext und stellt Nominierung zurück ([Dokumentation](de/autohold.html))
 * [Dupes Scroll](rhs-dupesScroll.user.js)
     - Nutze das Mausrad zum Scrollen in der Dupes-Liste
-* [ImageMod](rhss-imageMod.user.js)
+* [ImageMod](rhs-imageMod.user.js)
     - öffne Originalfotos in "benannten" Tabs
 * [OPR Stats](rhs-oprStats.user.js)
     - speichert persönliche Statistiken im Browser Local Storage
 * [Review Improve CSS](de/reviewImproveCSS.html)
     - Verschiedene Layout-Änderungen für Bewertungen am Desktop
+
+### Nichtunterstützte Skripte / Skripte in Entwicklung
+Es ist nicht garantiert, dass diese Skripte funktionieren. Wenn du ein Entwickler bist, schau sie dir an und behebe Fehler. :-)
+Andere Skripte sind neu, ungetestet oder noch in Entwicklung.
+
+* [Disable Text Diff](rhs-disableTextDiff.user.js)
+     - schaltet Niantics Text-Diff aus, indem der Schalter gedrückt wird
 
 ---
 
