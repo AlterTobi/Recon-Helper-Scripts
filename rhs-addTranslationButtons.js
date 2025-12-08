@@ -412,7 +412,7 @@
   // ----- BEGIN - general instructions ------
   switch(window.origin) {
     case ORIGIN_OPR:
-      console.log("Init Script loading:", GM_info.script.name, " - OPR");
+      // console.log("Init Script loading:", GM_info.script.name, " - OPR");
       if("undefined" === typeof(rhs)) {
         if (undefined === sessionStorage[sessvarMiss]) {
           sessionStorage[sessvarMiss] = 1;
@@ -424,11 +424,11 @@
       }
       break;
     case ORIGIN_DEEPL:
-      console.log("Init Script loading:", GM_info.script.name, " - Deepl");
+      // console.log("Init Script loading:", GM_info.script.name, " - Deepl");
       initD();
       break;
     case ORIGIN_KAGI:
-      console.log("Init Script loading:", GM_info.script.name, " - Kagi");
+      // console.log("Init Script loading:", GM_info.script.name, " - Kagi");
       initK();
       break;
     default:

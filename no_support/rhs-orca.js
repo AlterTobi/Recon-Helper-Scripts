@@ -1,5 +1,5 @@
 // @name         ORCa
-// @version      0.0.1
+// @version      1.0.0
 // @description  ORCa
 // @author       AlterTobi
 // @resource     orca https://altertobi.github.io/Recon-Helper-Scripts/images/orca.png
