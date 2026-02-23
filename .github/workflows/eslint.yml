@@ -38,7 +38,7 @@ jobs:
 
       - name: Run ESLint
         run: |
-          npx eslint . --config eslint.config.mjs -f json --output-file eslint-results.json
+          npx eslint . --config eslint.config.mjs -f json --output-file eslint-results.json || true
           node eslint-to-sarif.mjs < eslint-results.json
         continue-on-error: true
 
