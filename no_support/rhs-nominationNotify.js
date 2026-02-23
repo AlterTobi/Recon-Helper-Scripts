@@ -71,12 +71,12 @@
     w.rhs.f.localGet(lStoreList, []).then((historyDict)=>{
       const today = getCurrentDateStr();
       const missingDict = {};
-      let miss = {};
+      //      let miss = {};
 
       for (const histID in historyDict) {
         if (undefined === nomDict[histID]) {
           // missing
-          miss = historyDict[histID];
+          const miss = historyDict[histID];
           if ((miss.status !== "MISSING")) {
             miss.rhsDates.push([today, "MISSING"]);
             miss.status = "MISSING";
