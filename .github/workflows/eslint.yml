@@ -16,7 +16,7 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ dev, main ]
   schedule:
-    - cron: '38 5 * * 2'
+    - cron: '37 5 * * 2'
 
 jobs:
   eslint:
@@ -30,21 +30,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Node 20
+      - name: Setup Node 22
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
       - run: npm ci
 
       - name: Run ESLint
-        run: npx eslint .
-          --config eslint.config.mjs
-          --format @microsoft/eslint-formatter-sarif 
-          --output-file eslint-results.sarif
+        run: |
+          npx eslint . --config eslint.config.mjs -f json --output-file eslint-results.json
+          node eslint-to-sarif.mjs < eslint-results.json
         continue-on-error: true
 
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: eslint-results.sarif
+          sarif_file: results.sarif
           wait-for-processing: true
