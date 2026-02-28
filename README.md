@@ -5,7 +5,7 @@
 Tools and scripts for NianticSpatial Recon
 
 ### What is it?
-Userscripts for [NIANTICSPATIAL PORTAl RECON ](https://opr.ingress.com/new/)
+Userscripts for [NIANTICSPATIAL PORTAL RECON (OPR)](https://opr.ingress.com/new/)
 
 ### Download 
 Scripts and some documentation are available at my [GitHub Pages](https://altertobi.github.io/Recon-Helper-Scripts/).
@@ -22,7 +22,7 @@ Pull-Requests are welcome.
 Tools und Skripte für NianticSpatial Recon
 
 ### Was ist das?
-Userskripte für [NIANTICSPATIAL PORTAl RECON](https://opr.ingress.com/new/)
+Userskripte für [NIANTICSPATIAL PORTAL RECON (OPR)](https://opr.ingress.com/new/)
 
 ### Download 
 Die Skripte und eine Dokumentation sind auf meinen [GitHub Pages](https://altertobi.github.io/Recon-Helper-Scripts/) verfügbar.
