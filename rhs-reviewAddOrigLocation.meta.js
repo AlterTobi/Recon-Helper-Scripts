@@ -1,0 +1,15 @@
+// ==UserScript==
+// @name           RHS - review Add Orig Location
+// @version        1.0.0
+// @description    location edits - add marker for original location
+// @author         AlterTobi
+// @namespace      https://github.com/AlterTobi/RHS/
+// @homepage       https://altertobi.github.io/Recon-Helper-Scripts/
+// @supportURL     https://github.com/AlterTobi/Recon-Helper-Scripts/issues
+// @icon           https://altertobi.github.io/Recon-Helper-Scripts/assets/icon_32.png
+// @icon64         https://altertobi.github.io/Recon-Helper-Scripts/assets/icon_64.png
+// @downloadURL    https://altertobi.github.io/Recon-Helper-Scripts/rhs-reviewAddOrigLocation.user.js
+// @updateURL      https://altertobi.github.io/Recon-Helper-Scripts/rhs-reviewAddOrigLocation.meta.js
+// @match          https://opr.ingress.com/*
+// ==/UserScript==
+

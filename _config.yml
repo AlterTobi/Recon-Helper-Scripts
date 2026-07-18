@@ -1,0 +1,12 @@
+theme: jekyll-theme-hacker
+title: Recon Helper Scripts
+description: Tools and scripts for Operation Portal Recon
+show_downloads: false
+plugins:
+  - jekyll-sitemap
+defaults:
+  -
+    scope:
+      path:            "dev/**/*"
+    values:
+      sitemap:         false
