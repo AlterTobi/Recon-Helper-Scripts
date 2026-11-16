@@ -1,5 +1,5 @@
 // @name         Base
-// @version      0.0.8
+// @version      0.0.9
 // @description  basic functionality for OPR
 // @author       AlterTobi
 // @run-at       document-start
@@ -731,7 +731,7 @@
       // do we have a callback function?
       if ("function" === typeof callbackConfig.callback) {
         const actionButton = document.createElement("button");
-        actionButton.setAttribute("class", "wfesNotiButton material-icons");
+        actionButton.setAttribute("class", "rhsNotiButton material-icons");
 
         let actionIcon;
         switch (callbackConfig.icon) {
